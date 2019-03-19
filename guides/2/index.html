@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fusion_360_Lesson_2</title>
+  <!--Ссылки на стили-->
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/album.css">
+</head>
+
+<body>
+  <!--Добавляем шапку-->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <!--Тут лого или заголовок нашего сайта-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--Загаловок сайта-->
+        <a class="navbar-brand" href="#">Lessons on modeling in Fusion 360</a>
+      </div>
+      <!--Блок, который будет открываться при нажатой кнопки-->
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../../index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+          <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--Создаем блок глава-->
+  <div class="container wb">
+    <div class="row centered">
+      <br><br>
+      <div class="col-lg-8 col-lg-offset-2">
+        <h4>Урок № 2</h4>
+        <p><big>В данном уроке Вы сможете закрепить материал который уже прошли, узнать новые функции и построить деталь из одного компонента.</big></p>
+        <p></p>
+      </div>
+      <!--Полномасштабный блок-->
+      <!--Видос-->
+      <div class="col-lg-10 col-lg-offset-1">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/2VDjqRQX4kw" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!--Создаем блок с шагами урока-->
+  <div id="Lesson_1">
+    <!--Для шагов-->
+    <div class="container">
+      <!-- Button trigger modal -->
+      <div class="fixed-overlay fixed-overlay__modal">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+        <h4>Пошаговая инструкция</h4>
+      </button>
+      <div class="btn-group">
+        <form action="https://myhub.autodesk360.com/ue2863baa/g/shares/SHabee1QT1a327cf2b7ae2fccaaa8593b217?viewState=NoIgbgDAdAjCA0IDeAdEAXAngBwKZoC40ARXAZwEsBzAOzXjQEMyzd1C0AWAYwE4AORhAgB2ALS4YAVm5jOnXpzGMAZiPH8ATD25SIvAGz9%2BvNAF8QAXSA">
+          <button type="submit" class="btn btn-sm btn-outline-secondary"><h4>Посмотреть модель в 3D</h4></button>
+        </form>
+      </div>
+    </div>
+      <!-- Modal -->
+      <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Пошаговая инструкция урока № 2</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs d-none" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">№ 1</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">№ 2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">№ 3</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_one-tab" data-toggle="tab" href="#con_one" role="tab" aria-controls="con_one" aria-selected="false">№ 4</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_two-tab" data-toggle="tab" href="#con_two" role="tab" aria-controls="con_two" aria-selected="false">№ 5</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_three-tab" data-toggle="tab" href="#con_three" role="tab" aria-controls="con_three" aria-selected="false">№ 6</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_thoure-tab" data-toggle="tab" href="#con_thoure" role="tab" aria-controls="con_thoure" aria-selected="false">№ 7</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_five-tab" data-toggle="tab" href="#con_five" role="tab" aria-controls="con_five" aria-selected="false">№ 8</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_six-tab" data-toggle="tab" href="#con_six" role="tab" aria-controls="con_six" aria-selected="false">№ 9</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_7-tab" data-toggle="tab" href="#con_7" role="tab" aria-controls="con_six" aria-selected="false">№ 10</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_8-tab" data-toggle="tab" href="#con_8" role="tab" aria-controls="con_six" aria-selected="false">№ 11</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="con_9-tab" data-toggle="tab" href="#con_9" role="tab" aria-controls="con_six" aria-selected="false">№ 12</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <p></p>
+                  Перед тем как начать, вам необходимо запустить Fusion 360. Далее, Вам необходимо нажать на кнопку "Show Data", которая находится в правом левом углу.
+                  <p></p>
+                  <img src="img/1.jpg" alt="" class="img-responsive">
+                  <a href="img/1.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 1</a>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                  <p></p>
+                  У нас открылось окно и появилась кнопка "New Project". Создаем новый проект и выбераем его как активный, нажав по нему два раза "ЛКМ".
+                  <p></p>
+                  <img src="img/2.jpg" alt="" class="img-responsive">
+                  <a href="img/2.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 2</a>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="home-tab">
+                  <p></p>
+                  Нажимаем «SKETCH» и выбираем инструмент «Center Diameter Circle», который позволит нам создать круг по указанному диаметру.
+                  <p></p>
+                  <img src="img/3.jpg" alt="" class="img-responsive">
+                  <a href="img/3.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 3</a>
+                </div>
+                <div class="tab-pane fade" id="con_one" role="tabpanel" aria-labelledby="con_one-tab">
+                  <p></p>
+                  Создаём на любой плоскости два круга с диаметрами, указанными в чертеже (60 и 40) из одной точки с координатами 0.
+                  <p></p>
+                  <img src="../img/les_2/4.jpg" alt="" class="img-responsive">
+                  <a href="../img/les_2/4.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 4</a>
+                </div>
+                <div class="tab-pane fade" id="con_two" role="tabpanel" aria-labelledby="con_two-tab">
+                  <p></p>
+                  Создаём на расстоянии 100 от центра отрезок произвольной длины.
+                  <p></p>
+                  <img src="../img/les_2/5.jpg" alt="" class="img-responsive">
+                  <a href="../img/les_2/5.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 5</a>
+                </div>
+                <div class="tab-pane fade" id="con_three" role="tabpanel" aria-labelledby="con_three-tab">
+                  <p></p>
+                  Нажимаем "Stop Sketch", тем самым завершая работу над чертежом.
+                  <p></p>
+                  <img src="img/6.jpg" alt="" class="img-responsive">
+                  <a href="img/6.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 6</a>
+                </div>
+                <div class="tab-pane fade" id="con_thoure" role="tabpanel" aria-labelledby="con_thoure-tab">
+                  <p></p>
+                  Вернувшись в основное меню, выбираем «CREATE» - «Revolve». Выбираем внешний круг, который будет стенками нашей трубы. Осевая линия выбирается автоматически. В ином случае – указать на начерченный ранее отрезок. В настройках
+                  поставить 70 градусов. «Щелкаем Ок».
+                  <p></p>
+                  <img src="img/7.jpg" alt="" class="img-responsive">
+                  <a href="img/7.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 7</a>
+                  <p></p>
+                  <img src="img/8.jpg" alt="" class="img-responsive">
+                  <a href="img/8.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 8</a>
+                </div>
+                <div class="tab-pane fade" id="con_five" role="tabpanel" aria-labelledby="con_five-tab">
+                  <p></p>
+                  Выбираем инструмент «Extrude», нажимаем на плоскость «стенок» трубы и задаём расстояние 25. Повторяем это для другого конца трубы.
+                  <p></p>
+                  <img src="img/9.jpg" alt="" class="img-responsive">
+                  <a href="img/9.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 9</a>
+                </div>
+                <div class="tab-pane fade" id="con_six" role="tabpanel" aria-labelledby="con_six-tab">
+                  <p></p>
+                  Снова выбираем скетч, на этот раз нажимаем на плоскость трубы, которую мы ранее выдавливали.
+                  <p></p>
+                  <img src="img/10.jpg" alt="" class="img-responsive">
+                  <a href="img/10.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 10</a>
+                </div>
+                <div class="tab-pane fade" id="con_7" role="tabpanel" aria-labelledby="con_7-tab">
+                  <p></p>
+                  Создаём эскиз. Скругления добавим после. Пользуемся инструментами «Rectangle» и «Circle». Для того, чтобы создать указанные отверстия – нарисуем квадрат с указанными (64) сторонами. На его углах добавляем по окружности с радиусом 8.
+                  <p></p>
+                  <img src="img/11.jpg" alt="" class="img-responsive">
+                  <a href="img/11.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 11</a>
+                  <p></p>
+                  <img src="img/12.jpg" alt="" class="img-responsive">
+                  <a href="img/12.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 12</a>
+                </div>
+                <div class="tab-pane fade" id="con_8" role="tabpanel" aria-labelledby="con_8-tab">
+                  <p></p>
+                  Заканчиваем эскиз и выбираем инструмент «Extrude». Выбираем на чертеже только то, что нам нужно. В размер пишем «-10», благодаря чему выдавливание будет произведено в другую сторону.
+                  <p></p>
+                  <img src="img/13.jpg" alt="" class="img-responsive">
+                  <a href="img/13.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 13</a>
+                </div>
+                <div class="tab-pane fade" id="con_9" role="tabpanel" aria-labelledby="con_9-tab">
+                  <p></p>
+                  Наша деталь готова.
+                  <p></p>
+                  <img src="img/14.jpg" alt="" class="img-responsive">
+                  <a href="img/14.jpg" class="ulightbox" target="_blank" title="Нажмите, для просмотра в полном размере">Посмотреть рисунок № 14</a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Футер-->
+  <div id="footer">
+    <div class="container">
+      <div class="row centered">
+      </div>
+    </div>
+  </div>
+  <!--Скрипты для работы модальных окон-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
