@@ -54,8 +54,8 @@
 }
 .card-img-top {
   width: 100%;
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  /*border-top-left-radius: calc(.25rem - 1px);*/
+  /*border-top-right-radius: calc(.25rem - 1px);*/
   border-top-right-radius: 0.65rem;
   border-top-left-radius: 0.65rem;
 }
