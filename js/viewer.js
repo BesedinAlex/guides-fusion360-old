@@ -1,93 +1,58 @@
-var scene, camera, renderer, mesh;
-var meshFloor, ambientLight, light;
+/*
+* https://www.giftofspeed.com/javascript-compressor/
+* Перед загрузкой на сервер
+* */
 
-var keyboard = {};
-var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
+var scene, camera, renderer, controls;
 
-function main(){
+window.onload = function() {
+    init();
+    animate();
+};
+
+function init() {
+
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
+    scene.background = new THREE.Color(0xdcdcdc);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-    // Model/material loading!
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(300, 0, 0);
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.minDistance = 100;
+    controls.maxDistance = 400;
+
     var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load("model/material.mtl", function(materials) {
-
+    mtlLoader.load("model/material.mtl", function (materials) {
         materials.preload();
         var objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-
-        objLoader.load("model/object.obj", function(mesh) {
-
-            mesh.traverse(function(node) {
-                if( node instanceof THREE.Mesh ) {
-                    node.castShadow = true;
-                    node.receiveShadow = true;
-                }
+        objLoader.load("model/object.obj", function (mesh) {
+            mesh.traverse(function (node) {
+                if (node instanceof THREE.Mesh)
+                    node.castShadow = node.receiveShadow = true;
             });
-
             scene.add(mesh);
             mesh.position.set(0, 0, 0);
-            mesh.rotation.y = -Math.PI/4;
         });
-
     });
 
-    camera.position.set(0, player.height, -5);
-    camera.lookAt(new THREE.Vector3(0, player.height,0));
-
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(1280, 720);
-
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.BasicShadowMap;
-
-    document.body.appendChild(renderer.domElement);
-
-    animate();
+    window.addEventListener('resize', onWindowResize, false);
 }
 
-function animate(){
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
+function animate() {
     requestAnimationFrame(animate);
-
-    if(keyboard[87]){ // W key
-        camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
-        camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
-    }
-    if(keyboard[83]){ // S key
-        camera.position.x += Math.sin(camera.rotation.y) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
-    }
-    if(keyboard[65]){ // A key
-        camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
-    }
-    if(keyboard[68]){ // D key
-        camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
-    }
-
-    if(keyboard[37]){ // left arrow key
-        camera.rotation.y -= player.turnSpeed;
-    }
-    if(keyboard[39]){ // right arrow key
-        camera.rotation.y += player.turnSpeed;
-    }
-
     renderer.render(scene, camera);
 }
-
-function keyDown(event){
-    keyboard[event.keyCode] = true;
-}
-
-function keyUp(event){
-    keyboard[event.keyCode] = false;
-}
-
-window.addEventListener('keydown', keyDown);
-window.addEventListener('keyup', keyUp);
-
-window.onload = main;
