@@ -1,55 +1,58 @@
-/*
-* https://www.giftofspeed.com/javascript-compressor/
-* Перед загрузкой на сервер
-* */
-
-var scene, camera, renderer, controls;
+let scene, camera, renderer, controls;
 
 window.onload = function() {
+    function readTextFile(file, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        };
+        rawFile.send(null);
+    }
+
+    readTextFile("5/example/annotations.json", function(text){
+        var data = JSON.parse(text);
+        console.log(data[1]);
+    });
+
+
     init();
     animate();
 };
 
 function init() {
-
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xdcdcdc);
+    scene.background = new THREE.Color(0xffffff);
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 
     renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(document.querySelector("#viewer").clientWidth, window.innerHeight);
-    document.querySelector("#viewer").appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.querySelector('#viewer').appendChild(renderer.domElement);
 
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(300, 0, 0);
+    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 5000);
+    camera.position.set(300, 200, 500);
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.minDistance = 100;
-    controls.maxDistance = 400;
 
-    var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load("model/material.mtl", function (materials) {
+    const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.load('5/example/material.mtl', (materials) => {
         materials.preload();
-        var objLoader = new THREE.OBJLoader();
+        const objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.load("model/object.obj", function (mesh) {
-            mesh.traverse(function (node) {
-                if (node instanceof THREE.Mesh)
-                    node.castShadow = node.receiveShadow = true;
-            });
-            scene.add(mesh);
-            mesh.position.set(0, 0, 0);
-        });
+        objLoader.load('5/example/object.obj', (mesh) => scene.add(mesh));
     });
 
-    window.addEventListener('resize', onWindowResize, false);
+    window.addEventListener('resize', onWindowResize);
 }
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(document.querySelector("#viewer").clientWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function animate() {
