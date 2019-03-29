@@ -4,6 +4,7 @@ var modelIndex, annotations;
 
 window.onload = function() {
     modelIndex = window.location.search.match(/[0-9]+/)[0];
+    document.title += ' № ' + modelIndex;
     getAnnotations(modelIndex + '/example/annotations.json', (text) => annotations = JSON.parse(text));
     setTimeout(() => {
         init();
