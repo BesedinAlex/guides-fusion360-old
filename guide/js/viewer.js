@@ -1,18 +1,20 @@
 var scene, camera, renderer, controls;
-var annotations;
-var raycaster, mouse;
+var modelIndex, annotations;
+// var raycaster, mouse;
 
 window.onload = function() {
-    getAnnotations("5/example/annotations.json", (text) => annotations = JSON.parse(text));
+    modelIndex = window.location.search.match(/[0-9]+/)[0];
+    getAnnotations(modelIndex + '/example/annotations.json', (text) => annotations = JSON.parse(text));
     setTimeout(() => {
         init();
         animate();
-    }, 500);
+    }, 1000);
 };
 
 function init() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
+
+    scene.background = new THREE.Color(0xf0f0f0);
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 
     renderer = new THREE.WebGLRenderer({antialias: true});
@@ -23,18 +25,17 @@ function init() {
 
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 5000);
     camera.position.set(225, 150, 375);
-    scene.add(camera);
 
     controls = new THREE.TrackballControls(camera, renderer.domElement);
     controls.rotateSpeed = 2;
     controls.zoomSpeed = 2;
 
     const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load('5/example/material.mtl', (materials) => {
+    mtlLoader.load(modelIndex + '/example/material.mtl', (materials) => {
         materials.preload();
         const objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.load('5/example/object.obj', (mesh) => scene.add(mesh));
+        objLoader.load(modelIndex + '/example/object.obj', (mesh) => scene.add(mesh));
     });
 
     for (const i in annotations)
@@ -42,15 +43,9 @@ function init() {
 
     window.addEventListener('resize', onWindowResize);
 
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-    window.addEventListener('click', onMouseClick); // Get coordinates for new annotation
-}
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // raycaster = new THREE.Raycaster();
+    // mouse = new THREE.Vector2();
+    // window.addEventListener('click', onMouseClick);
 }
 
 function animate() {
@@ -70,12 +65,18 @@ function animate() {
     changeVisibilityOfAnnotations();
 }
 
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
 function getAnnotations(file, callback) {
     const rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
+    rawFile.overrideMimeType('application/json');
+    rawFile.open('GET', file, true);
     rawFile.onreadystatechange = () => {
-        if (rawFile.readyState === 4 && rawFile.status == "200")
+        if (rawFile.readyState === 4 && rawFile.status == '200')
             callback(rawFile.responseText);
     };
     rawFile.send(null);
@@ -86,9 +87,6 @@ function addAnnotation(index) {
     annotation.id = 'annotation-' + index;
     annotation.classList.add('annotation', 'hidden');
     document.querySelector('body').appendChild(annotation);
-    const annotationName = document.createElement('h4');
-    annotationName.id = 'annotation-name-' + index;
-    annotation.appendChild(annotationName);
     const annotationText = document.createElement('p');
     annotationText.id = 'annotation-text-' + index;
     annotation.appendChild(annotationText);
@@ -103,23 +101,11 @@ function addAnnotation(index) {
 function hideAnnotation(index) {
     const annotation = document.querySelector('#annotation-' + index);
     const hidden = annotation.classList.contains('hidden');
-    document.querySelector('#annotation-name-' + index).innerHTML = hidden ? annotations[index].name : '';
     document.querySelector('#annotation-text-' + index).innerHTML = hidden ? annotations[index].text : '';
     if (hidden)
         annotation.classList.remove('hidden');
     else
         annotation.classList.add('hidden');
-}
-
-function onMouseClick(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children, true);
-    if (intersects.lenght !== 0) {
-        currentPoint = intersects[0].point;
-        console.log(currentPoint);
-    }
 }
 
 function getClosestAnnotation() {
@@ -139,7 +125,18 @@ function getClosestAnnotation() {
 
 function changeVisibilityOfAnnotations() {
     for (const i in annotations) {
-        document.querySelector('#annotation-' + i).style.zIndex = getClosestAnnotation() == i ? 1 : 0;
-        document.querySelector('#annotation-index-' + i).style.zIndex = getClosestAnnotation() == i ? 1 : 0;
+        document.querySelector('#annotation-' + i).style.zIndex = getClosestAnnotation() === +i ? 1 : 0;
+        document.querySelector('#annotation-index-' + i).style.zIndex = getClosestAnnotation() === +i ? 1 : 0;
     }
 }
+
+// function onMouseClick(event) {
+//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+//     raycaster.setFromCamera(mouse, camera);
+//     const intersects = raycaster.intersectObjects(scene.children, true);
+//     if (intersects.lenght !== 0) {
+//         currentPoint = intersects[0].point;
+//         console.log(currentPoint);
+//     }
+// }
