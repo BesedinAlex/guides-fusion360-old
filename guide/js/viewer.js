@@ -2,14 +2,12 @@ var scene, camera, renderer, controls;
 var modelIndex, annotations;
 // var raycaster, mouse;
 
-window.onload = function() {
+window.onload = async function() {
     modelIndex = window.location.search.match(/[0-9]+/)[0];
     document.title += ' № ' + modelIndex;
-    getAnnotations(modelIndex + '/example/annotations.json', (text) => annotations = JSON.parse(text));
-    setTimeout(() => {
-        init();
-        animate();
-    }, 1000);
+    annotations = await getAnnotations();
+    init();
+    animate();
 };
 
 function init() {
@@ -72,15 +70,9 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function getAnnotations(file, callback) {
-    const rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType('application/json');
-    rawFile.open('GET', file, true);
-    rawFile.onreadystatechange = () => {
-        if (rawFile.readyState === 4 && rawFile.status == '200')
-            callback(rawFile.responseText);
-    };
-    rawFile.send(null);
+async function getAnnotations () {
+    let response = await fetch(modelIndex + '/example/annotations.json');
+    return await response.json();
 }
 
 function addAnnotation(index) {
