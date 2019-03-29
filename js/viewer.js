@@ -30,11 +30,11 @@ function init() {
     controls.zoomSpeed = 2;
 
     const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load(modelIndex + '/example/material.mtl', (materials) => {
+    mtlLoader.load(modelIndex + '/model/material.mtl', (materials) => {
         materials.preload();
         const objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.load(modelIndex + '/example/object.obj', (mesh) => scene.add(mesh));
+        objLoader.load(modelIndex + '/model/object.obj', (mesh) => scene.add(mesh));
     });
 
     for (const i in annotations)
@@ -71,7 +71,7 @@ function onWindowResize() {
 }
 
 async function getAnnotations () {
-    let response = await fetch(modelIndex + '/example/annotations.json');
+    const response = await fetch(modelIndex + '/model/annotations.json');
     return await response.json();
 }
 
@@ -79,7 +79,6 @@ function addAnnotation(index) {
     const annotation = document.createElement('div');
     annotation.id = 'annotation-' + index;
     annotation.classList.add('annotation', 'hidden');
-    document.querySelector('body').appendChild(annotation);
     const annotationText = document.createElement('p');
     annotationText.id = 'annotation-text-' + index;
     annotation.appendChild(annotationText);
@@ -88,7 +87,9 @@ function addAnnotation(index) {
     annotationNumber.classList.add('annotation-number');
     annotationNumber.innerText = + index + 1;
     annotationNumber.addEventListener('click', () => hideAnnotation(index));
-    document.querySelector('body').appendChild(annotationNumber);
+    const body = document.querySelector('body');
+    body.appendChild(annotation);
+    body.appendChild(annotationNumber);
 }
 
 function hideAnnotation(index) {
@@ -118,8 +119,8 @@ function getClosestAnnotation() {
 
 function changeVisibilityOfAnnotations() {
     for (const i in annotations) {
-        document.querySelector('#annotation-' + i).style.zIndex = getClosestAnnotation() === +i ? 1 : 0;
-        document.querySelector('#annotation-index-' + i).style.zIndex = getClosestAnnotation() === +i ? 1 : 0;
+        document.querySelector('#annotation-' + i).style.zIndex = getClosestAnnotation() === +i ? '1' : '0';
+        document.querySelector('#annotation-index-' + i).style.zIndex = getClosestAnnotation() === +i ? '1' : '0';
     }
 }
 
