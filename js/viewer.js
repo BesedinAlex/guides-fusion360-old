@@ -30,11 +30,11 @@ function init() {
     controls.zoomSpeed = 2;
 
     const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.load(modelIndex + '/model/material.mtl', (materials) => {
+    mtlLoader.load('content/' + modelIndex + '/model.mtl', (materials) => {
         materials.preload();
         const objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.load(modelIndex + '/model/object.obj', (mesh) => scene.add(mesh));
+        objLoader.load('content/' + modelIndex + 'model.obj', (mesh) => scene.add(mesh));
     });
 
     for (const i in annotations)
@@ -71,7 +71,7 @@ function onWindowResize() {
 }
 
 async function getAnnotations () {
-    const response = await fetch(modelIndex + '/model/annotations.json');
+    const response = await fetch('content/' + modelIndex + '/annotation.json');
     return await response.json();
 }
 
