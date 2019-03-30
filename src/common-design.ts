@@ -1,7 +1,6 @@
 function header() {
-    const pane1 = document.createElement('div');
+    const pane1 = document.querySelector('#header');
     pane1.classList.add('card-header');
-    document.querySelector('body').appendChild(pane1);
     const pane2 = document.createElement('div');
     pane2.classList.add('container');
     pane1.appendChild(pane2);
@@ -13,9 +12,8 @@ function header() {
 }
 
 function footer() {
-    const pane1 = document.createElement('div');
+    const pane1 = document.querySelector('#footer');
     pane1.classList.add('card-footer');
-    document.querySelector('body').appendChild(pane1);
     const pane2 = document.createElement('div');
     pane2.classList.add('container');
     pane1.appendChild(pane2);
