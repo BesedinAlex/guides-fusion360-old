@@ -1,18 +1,15 @@
 function header() {
     const pane1 = document.createElement('div');
-    pane1.classList.add('navbar', 'navbar-inverse', 'navbar-fixed-top', 'card-header');
+    pane1.classList.add('card-header');
     document.querySelector('body').appendChild(pane1);
     const pane2 = document.createElement('div');
     pane2.classList.add('container');
     pane1.appendChild(pane2);
-    const pane3 = document.createElement('div');
-    pane3.classList.add('navbar-header');
-    pane2.appendChild(pane3);
     const a = document.createElement('a');
     a.classList.add('navbar-brand');
     a.href = 'home.html?id=1';
     a.innerText = 'Гайды по Fusion 360';
-    pane3.appendChild(a);
+    pane2.appendChild(a);
 }
 
 function footer() {
