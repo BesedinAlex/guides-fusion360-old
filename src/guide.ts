@@ -4,7 +4,9 @@ window.onload = async function() {
     guideIndex = window.location.search.match(/[0-9]+/)[0];
     document.title += ' № ' + guideIndex;
     guide = await getGuide();
-    fill();
+    header();
+    fillGuide();
+    footer();
 };
 
 async function getGuide () {
@@ -12,7 +14,7 @@ async function getGuide () {
     return await response.json();
 }
 
-function fill() {
+function fillGuide() {
     // TODO: Make it look better.
     const body = document.querySelector('#main');
     for (const i in guide) {
