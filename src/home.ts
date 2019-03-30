@@ -1,9 +1,9 @@
 let homeIndex: string, guides: [object];
 
 window.onload = async function() {
+    header();
     homeIndex = window.location.search.match(/[0-9]+/)[0];
     guides = await getGuides();
-    header();
     fillGuides();
     footer();
 };

@@ -20,7 +20,7 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.id = 'model';
-    document.querySelector('#viewer').appendChild(renderer.domElement);
+    document.querySelector('body').appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 5000);
     camera.position.set(225, 150, 375);
