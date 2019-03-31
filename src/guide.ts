@@ -7,6 +7,7 @@ window.onload = async function() {
     guide = await getGuide();
     fillGuide();
     footer();
+    fixFooter();
 };
 
 async function getGuide () {
@@ -27,58 +28,48 @@ function fillGuide() {
         a.style.color = '#fff';
         a.setAttribute('data-toggle', 'modal');
         a.setAttribute('data-target', '#modal');
+        a.addEventListener('click',() => fillModal(i));
         li.appendChild(a);
-
     }
+}
 
+function fillModal(index: string) {
+    // @ts-ignore
+    const content = guide[index];
+    document.querySelector('#modal-title').innerHTML = content.name.substr(1);
+    const window = document.querySelector('#modal-body');
+    window.innerHTML = '';
+    for (const i in content) {
+        const firstSym = content[i][0];
+        switch (firstSym) {
+            case '*': // Image
+                const jsonImg = content[i].substr(1);
+                const linkToImg = 'content/' + guideIndex + '/img/' + jsonImg;
+                const img = document.createElement('img');
+                img.style.maxWidth = '100%';
+                img.src = linkToImg;
+                window.appendChild(img);
+                break;
+            case '@': // Video
+                // TODO: Input video.
+                break;
+            case '$': // Fusion Model
+                // TODO: Make downloadable fusion model.
+                break;
+            case '!': // Name of model
+                break;
+            default:  // Text
+                const p = document.createElement('p');
+                p.innerText = content[i];
+                window.appendChild(p);
+                break;
+        }
+    }
+}
 
-
-    // for (const i in guide) {
-    //     const li = document.createElement('li');
-    //     li.classList.add('nav-item');
-    //     ul.appendChild(li);
-    //     const a = document.createElement('a');
-    //     a.classList.add('nav-link');
-    //     a.setAttribute('role', 'tab');
-    //     a.setAttribute('aria-selected', 'false');
-    //     a.setAttribute('aria-controls', 'tab-' + i);
-    //     // a.setAttribute('data-toggle', 'pill');
-    //     a.setAttribute('data-toggle', 'modal');
-    //     a.setAttribute('data-target', '#exampleModal');
-    //     a.href = '#tab-' + i;
-    //     const name = guide[i].name.substr(1);
-    //     // @ts-ignore
-    //     a.innerText = name;
-    //     li.appendChild(a);
-    //     const pane3 = document.createElement('div');
-    //     pane3.classList.add('tab-pane', 'fade');
-    //     pane3.id = 'tab-' + i;
-    //     pane2.appendChild(pane3);
-    //     for (const j in guide[i]) {
-    //         // @ts-ignore
-    //         const firstSym = guide[i][j][0];
-    //             switch (firstSym) {
-    //                 case '*': // Image
-    //                     const jsonImg = guide[i][j].substr(1);
-    //                     const linkToImg = 'content/' + guideIndex + '/img/' + jsonImg;
-    //                     const img = document.createElement('img');
-    //                     img.src = linkToImg;
-    //                     pane3.appendChild(img);
-    //                     break;
-    //                 case '@': // Video
-    //                     // TODO: Input video.
-    //                     break;
-    //                 case '$': // Fusion Model
-    //                     // TODO: Make downloadable fusion model.
-    //                     break;
-    //                 case '!':
-    //                     break;
-    //                 default:  // Text
-    //                     const p = document.createElement('p');
-    //                     p.innerText = guide[i][j];
-    //                     pane3.appendChild(p);
-    //                     break;
-    //             }
-    //     }
-    // }
+function fixFooter() {
+    const footer = document.querySelector('#footer') as HTMLBaseElement;
+    footer.style.position = 'absolute';
+    footer.style.bottom = '0';
+    footer.style.width = '100%';
 }
