@@ -29,7 +29,7 @@ function fillGuides() {
         img.style.height = '16rem';
         img.style.width = '100%';
         img.src = 'content/home/img/guide-' + (Number(homeIndex) * Number(i)) +'.png';
-        img.alt = 'preview image of model';
+        img.alt = 'preview of the model';
         pane3.appendChild(img);
         const pane4 = document.createElement('div');
         pane4.classList.add('card-body', 'd-flex', 'flex-column');

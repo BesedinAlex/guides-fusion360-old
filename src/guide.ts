@@ -16,7 +16,7 @@ async function getGuide () {
 }
 
 function fillGuide() {
-    (document.querySelector('#model') as HTMLBaseElement).href = 'viewer.html?id=' + guideIndex;
+    (document.querySelector('#preview') as HTMLImageElement).src = 'content/home/img/guide-' + guideIndex + '.png';
     const ul = document.querySelector('ul');
     for (const i in guide) {
         const li = document.createElement('li');
@@ -31,37 +31,63 @@ function fillGuide() {
         a.addEventListener('click',() => fillModal(i));
         li.appendChild(a);
     }
+    const li = document.createElement('li');
+    li.classList.add('px-2');
+    ul.appendChild(li);
+    const a = document.createElement('a');
+    a.classList.add('btn', 'btn-warning');
+    a.innerText = 'Посмотреть в 3D';
+    a.href = 'viewer.html?id=' + guideIndex;
+    a.style.color = '#fff';
+    li.appendChild(a);
 }
 
 function fillModal(index: string) {
     // @ts-ignore
     const content = guide[index];
     document.querySelector('#modal-title').innerHTML = content.name.substr(1);
-    const window = document.querySelector('#modal-body');
-    window.innerHTML = '';
+    const modalWindow = document.querySelector('#modal-body');
+    modalWindow.innerHTML = '';
     for (const i in content) {
         const firstSym = content[i][0];
         switch (firstSym) {
+            case '!': // Name of model
+                break;
             case '*': // Image
                 const jsonImg = content[i].substr(1);
                 const linkToImg = 'content/' + guideIndex + '/img/' + jsonImg;
                 const img = document.createElement('img');
                 img.style.maxWidth = '100%';
                 img.src = linkToImg;
-                window.appendChild(img);
+                modalWindow.appendChild(img);
+                const openImg = document.createElement('a');
+                openImg.innerText = 'Рис. ' + jsonImg.match(/[0-9]+/)[0];
+                openImg.href = linkToImg;
+                openImg.onclick = (event) => {
+                    event.preventDefault();
+                    window.open(linkToImg, '_blank');
+                };
+                modalWindow.appendChild(openImg);
+                modalWindow.appendChild(document.createElement('br'));
                 break;
             case '@': // Video
-                // TODO: Input video.
+                const iframeDiv = document.createElement('div');
+                iframeDiv.classList.add('embed-responsive', 'embed-responsive-16by9');
+                modalWindow.appendChild(iframeDiv);
+                modalWindow.appendChild(document.createElement('br'));
+                const iframe = document.createElement('iframe');
+                iframe.classList.add('embed-responsive-item');
+                iframe.src = content[i].substr(1);
+                iframe.allowFullscreen = true;
+                iframeDiv.appendChild(iframe);
                 break;
-            case '$': // Fusion Model
-                // TODO: Make downloadable fusion model.
-                break;
-            case '!': // Name of model
+            case '$': // Fusion Models
+                // TODO: Make downloadable fusion models (better use .zip).
                 break;
             default:  // Text
                 const p = document.createElement('p');
                 p.innerText = content[i];
-                window.appendChild(p);
+                modalWindow.appendChild(p);
                 break;
         }
     }

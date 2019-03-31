@@ -16,7 +16,7 @@ function header() {
 
 function footer() {
     const pane1 = document.querySelector('#footer') as HTMLBaseElement;
-    pane1.classList.add('card-footer', 'bg-dark');
+    pane1.classList.add('bg-dark', 'py-3');
     pane1.style.color = '#fff';
     const pane2 = document.createElement('div');
     pane2.classList.add('container');
