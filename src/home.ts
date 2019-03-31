@@ -25,7 +25,7 @@ function fillGuides() {
         pane3.classList.add('card', 'mb-4', 'box-shadow');
         pane2.appendChild(pane3);
         const img = document.createElement('img');
-        img.classList.add('card-img-top');
+        img.classList.add('card-img-top', 'border-bottom');
         img.style.height = '16rem';
         img.style.width = '100%';
         img.src = 'content/home/img/guide-' + (Number(homeIndex) * Number(i)) +'.png';
@@ -44,7 +44,7 @@ function fillGuides() {
         pane4.appendChild(text);
         const a = document.createElement('a');
         a.href = 'guide.html?id=' + (Number(homeIndex) * Number(i));
-        a.classList.add('btn', 'btn-primary', 'mt-auto');
+        a.classList.add('btn', 'btn-success', 'mt-auto');
         a.style.width = '120px';
         a.innerText = 'Приступить';
         pane4.appendChild(a);

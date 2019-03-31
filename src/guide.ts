@@ -23,7 +23,7 @@ function fillGuide() {
         li.classList.add('px-2');
         ul.appendChild(li);
         const a = document.createElement('a');
-        a.classList.add('btn', 'btn-primary');
+        a.classList.add('btn', 'btn-success');
         a.innerText = guide[i].name.substr(1);
         a.style.color = '#fff';
         a.setAttribute('data-toggle', 'modal');
