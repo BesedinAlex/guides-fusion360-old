@@ -1,6 +1,6 @@
 let scene, camera, renderer, controls;
 let modelIndex, annotations;
-// let raycaster, mouse;
+let raycaster, mouse;
 
 window.onload = async function() {
     modelIndex = window.location.search.match(/[0-9]+/)[0];
@@ -42,9 +42,9 @@ function init() {
 
     window.addEventListener('resize', onWindowResize);
 
-    // raycaster = new THREE.Raycaster();
-    // mouse = new THREE.Vector2();
-    // window.addEventListener('click', onMouseClick);
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+    window.addEventListener('click', getCoordinatesOfClick);
 }
 
 function animate() {
@@ -124,13 +124,13 @@ function changeVisibilityOfAnnotations() {
     }
 }
 
-// function onMouseClick(event) {
-//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-//     raycaster.setFromCamera(mouse, camera);
-//     const intersects = raycaster.intersectObjects(scene.children, true);
-//     if (intersects.lenght !== 0) {
-//         currentPoint = intersects[0].point;
-//         console.log(currentPoint);
-//     }
-// }
+function getCoordinatesOfClick(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children, true);
+    if (intersects.lenght !== 0) {
+        currentPoint = intersects[0].point;
+        console.log(currentPoint);
+    }
+}
