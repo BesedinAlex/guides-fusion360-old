@@ -4,10 +4,18 @@ This small web site was made by students of [Moscow Polytechnic University](http
 
 Content of every guide may have different quality and usefulness depending on who exactly made the one.
 
+The site is made using [three.js](https://threejs.org) and [Bootstrap](https://getbootstrap.com).
+
+<hr>
+
+Site contains:
+1. Basic home page with a pool of guides.
+2. Guide page where needed guided is loaded to.
+3. Viewer page where you can look at 3D model with annotations.
+
 <hr>
 
 To test the site:
-1. `cd path/to/repo/folder`.
-2. `tsc`
-3. Copy MTLLoader.min.js and OBJLoader.min.js from src/ to js/.
-4. Open index.html.
+1. `cd */guides-fusion360`.
+2. `tsc`. (have TypeScript installed before)
+3. Open index.html.
