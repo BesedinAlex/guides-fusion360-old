@@ -85,7 +85,7 @@ function addAnnotation(index) {
     const annotationNumber = document.createElement('div');
     annotationNumber.id = 'annotation-index-' + index;
     annotationNumber.classList.add('annotation-number');
-    annotationNumber.innerText = + index + 1;
+    annotationNumber.innerText = +index + 1;
     annotationNumber.addEventListener('click', () => hideAnnotation(index));
     const body = document.querySelector('body');
     body.appendChild(annotation);

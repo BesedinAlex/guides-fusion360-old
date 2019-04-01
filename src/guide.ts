@@ -1,13 +1,10 @@
 let guideIndex: string, guide: [any];
 
 window.onload = async function() {
-    header();
     guideIndex = window.location.search.match(/[0-9]+/)[0];
     document.title += ' № ' + guideIndex;
     guide = await getGuide();
     fillGuide();
-    footer();
-    fixFooter();
 };
 
 async function getGuide () {
@@ -20,7 +17,7 @@ function fillGuide() {
     const ul = document.querySelector('ul');
     for (const i in guide) {
         const li = document.createElement('li');
-        li.classList.add('px-2');
+        li.classList.add('px-2', 'py-2');
         ul.appendChild(li);
         const a = document.createElement('a');
         a.classList.add('btn', 'btn-success');
@@ -32,7 +29,7 @@ function fillGuide() {
         li.appendChild(a);
     }
     const li = document.createElement('li');
-    li.classList.add('px-2');
+    li.classList.add('px-2', 'py-2');
     ul.appendChild(li);
     const a = document.createElement('a');
     a.classList.add('btn', 'btn-warning');
@@ -91,11 +88,4 @@ function fillModal(index: string) {
                 break;
         }
     }
-}
-
-function fixFooter() {
-    const footer = document.querySelector('#footer') as HTMLBaseElement;
-    footer.style.position = 'absolute';
-    footer.style.bottom = '0';
-    footer.style.width = '100%';
 }
