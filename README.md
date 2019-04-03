@@ -12,10 +12,3 @@ Site contains:
 1. Basic home page with a pool of guides.
 2. Guide page where needed guided is loaded to.
 3. Viewer page where you can look at 3D model with annotations.
-
-<hr>
-
-To test the site:
-1. `cd */guides-fusion360`.
-2. `tsc`. (have TypeScript installed before)
-3. Open index.html.
