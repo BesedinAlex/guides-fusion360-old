@@ -52,8 +52,8 @@ function animate() {
     for (const i in annotations) {
         const p2 = new THREE.Vector3(annotations[i].x, annotations[i].y, annotations[i].z);
         p2.project(camera);
-        p2.x = Math.round((p2.x + 1) * document.querySelector('#model').width / 4);
-        p2.y = Math.round((-p2.y + 1) * document.querySelector('#model').height / 4);
+        p2.x = Math.round((p2.x + 1) * document.querySelector('#model').width / 2 / window.devicePixelRatio);
+        p2.y = Math.round((-p2.y + 1) * document.querySelector('#model').height / 2 / window.devicePixelRatio);
         document.querySelector('#annotation-' + i).style.left = p2.x + "px";
         document.querySelector('#annotation-' + i).style.top = p2.y + "px";
         document.querySelector('#annotation-index-' + i).style.left = p2.x - 15 + "px";

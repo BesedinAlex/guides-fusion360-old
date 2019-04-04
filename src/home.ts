@@ -43,7 +43,7 @@ function fillGuides() {
         const a = document.createElement('a');
         a.href = 'guide.html?id=' + (Number(homeIndex) * Number(i));
         a.classList.add('btn', 'btn-success', 'mt-auto');
-        a.style.width = '120px';
+        a.style.width = '125px';
         a.innerText = 'Приступить';
         pane4.appendChild(a);
     }
