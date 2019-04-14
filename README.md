@@ -10,5 +10,5 @@ The site is made using [three.js](https://threejs.org) and [Bootstrap](https://g
 
 Site contains:
 1. Basic home page with a pool of guides.
-2. Guide page where needed guided is loaded to.
+2. Guide page where needed guide is loaded to.
 3. Viewer page where you can look at 3D model with annotations.
