@@ -1,7 +1,7 @@
-let homeIndex: string, guides: [object];
+let homeIndex, guides;
 
 window.onload = async function() {
-    homeIndex = window.location.search.match(/[0-9]+/)[0];
+    homeIndex = new URLSearchParams(window.location.search).get('id');
     guides = await getGuides();
     fillGuides();
 };

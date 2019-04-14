@@ -5,7 +5,6 @@
     "target": "esnext",
     "removeComments": true,
     "inlineSourceMap": true,
-    "noImplicitAny": true,
     "outDir": "js"
   },
   "include": [

@@ -1,12 +1,12 @@
 let scene, camera, renderer, controls;
-let modelIndex, annotations;
+let modelIndex;
 let raycaster, mouse;
 
 window.onload = async function() {
-    modelIndex = window.location.search.match(/[0-9]+/)[0];
+    modelIndex = new URLSearchParams(window.location.search).get('id');
     document.title += ' № ' + modelIndex;
-    annotations = await getAnnotations();
     init();
+    await Annotations.init();
     animate();
 };
 
@@ -37,9 +37,6 @@ function init() {
         objLoader.load('content/' + modelIndex + '/model.obj', (mesh) => scene.add(mesh));
     });
 
-    for (const i in annotations)
-        addAnnotation(i);
-
     window.addEventListener('resize', onWindowResize);
 
     raycaster = new THREE.Raycaster();
@@ -49,79 +46,15 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    for (const i in annotations) {
-        const p2 = new THREE.Vector3(annotations[i].x, annotations[i].y, annotations[i].z);
-        p2.project(camera);
-        p2.x = Math.round((p2.x + 1) * document.querySelector('#model').width / 2 / window.devicePixelRatio);
-        p2.y = Math.round((-p2.y + 1) * document.querySelector('#model').height / 2 / window.devicePixelRatio);
-        document.querySelector('#annotation-' + i).style.left = p2.x + "px";
-        document.querySelector('#annotation-' + i).style.top = p2.y + "px";
-        document.querySelector('#annotation-index-' + i).style.left = p2.x - 15 + "px";
-        document.querySelector('#annotation-index-' + i).style.top = p2.y - 15 + "px";
-    }
     controls.update();
     renderer.render(scene, camera);
-    changeVisibilityOfAnnotations();
+    Annotations.update();
 }
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-async function getAnnotations () {
-    const response = await fetch('content/' + modelIndex + '/annotation.json');
-    return await response.json();
-}
-
-function addAnnotation(index) {
-    const annotation = document.createElement('div');
-    annotation.id = 'annotation-' + index;
-    annotation.classList.add('annotation', 'hidden');
-    const annotationText = document.createElement('p');
-    annotationText.id = 'annotation-text-' + index;
-    annotation.appendChild(annotationText);
-    const annotationNumber = document.createElement('div');
-    annotationNumber.id = 'annotation-index-' + index;
-    annotationNumber.classList.add('annotation-number');
-    annotationNumber.innerText = +index + 1;
-    annotationNumber.addEventListener('click', () => hideAnnotation(index));
-    const body = document.querySelector('body');
-    body.appendChild(annotation);
-    body.appendChild(annotationNumber);
-}
-
-function hideAnnotation(index) {
-    const annotation = document.querySelector('#annotation-' + index);
-    const hidden = annotation.classList.contains('hidden');
-    document.querySelector('#annotation-text-' + index).innerHTML = hidden ? annotations[index].text : '';
-    if (hidden)
-        annotation.classList.remove('hidden');
-    else
-        annotation.classList.add('hidden');
-}
-
-function getClosestAnnotation() {
-    let indexOfClosest;
-    let distToClosest = Math.pow(2, 32);
-    for (const i in annotations) {
-        const camPos = camera.position;
-        const pPos = annotations[i];
-        const dist = Math.sqrt(Math.pow((camPos.x - pPos.x),2) + Math.pow((camPos.y - pPos.y),2) + Math.pow((camPos.z - pPos.z),2));
-        if (distToClosest > dist) {
-            distToClosest = dist;
-            indexOfClosest = +i;
-        }
-    }
-    return indexOfClosest;
-}
-
-function changeVisibilityOfAnnotations() {
-    for (const i in annotations) {
-        document.querySelector('#annotation-' + i).style.zIndex = getClosestAnnotation() === +i ? '1' : '0';
-        document.querySelector('#annotation-index-' + i).style.zIndex = getClosestAnnotation() === +i ? '1' : '0';
-    }
 }
 
 function getCoordinatesOfClick(event) {

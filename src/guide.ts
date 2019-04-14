@@ -1,7 +1,7 @@
-let guideIndex: string, guide: [any];
+let guideIndex, guide;
 
 window.onload = async function() {
-    guideIndex = window.location.search.match(/[0-9]+/)[0];
+    guideIndex = new URLSearchParams(window.location.search).get('id');
     document.title += ' № ' + guideIndex;
     guide = await getGuide();
     fillGuide();
