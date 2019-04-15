@@ -1,6 +1,4 @@
-let scene, camera, renderer, controls;
-let modelIndex;
-let raycaster, mouse;
+let scene, camera, renderer, controls, modelIndex, raycaster, mouse;
 
 window.onload = async function() {
     modelIndex = new URLSearchParams(window.location.search).get('id');

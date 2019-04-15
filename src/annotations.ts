@@ -1,16 +1,17 @@
 class Annotations {
-    static annotations;
+    private static annotations;
 
     static async init() {
-        Annotations.annotations = await Annotations.getAnnotations();
+        Annotations.annotations = await Annotations.getData();
         for (const i in Annotations.annotations)
-            Annotations.addAnnotation(i);
+            Annotations.add(i);
     }
 
     static update() {
         for (const i in Annotations.annotations) {
+            const coords = Annotations.annotations[i];
             // @ts-ignore
-            const p2 = new THREE.Vector3(Annotations.annotations[i].x, Annotations.annotations[i].y, Annotations.annotations[i].z);
+            const p2 = new THREE.Vector3(coords.x, coords.y, coords.z);
             const model = document.querySelector('#model') as HTMLFormElement;
             const annotation = document.querySelector('#annotation-' + i) as HTMLFormElement;
             const annotationIndex = document.querySelector('#annotation-index-' + i) as HTMLFormElement;
@@ -22,48 +23,52 @@ class Annotations {
             annotationIndex.style.left = p2.x - 15 + "px";
             annotationIndex.style.top = p2.y - 15 + "px";
         }
-        Annotations.changeVisibilityOfAnnotations();
+        Annotations.changeVisibilityByDistance();
     }
 
-    private static async getAnnotations () {
+    private static async getData () {
         const response = await fetch('content/' + modelIndex + '/annotations.json');
         return await response.json();
     }
 
-    private static addAnnotation(index) {
+    private static add(index) {
         const annotation = document.createElement('div');
         annotation.id = 'annotation-' + index;
         annotation.classList.add('annotation', 'hidden');
+
         const annotationText = document.createElement('p');
         annotationText.id = 'annotation-text-' + index;
         annotation.appendChild(annotationText);
+
         const annotationNumber = document.createElement('div');
         annotationNumber.id = 'annotation-index-' + index;
         annotationNumber.classList.add('annotation-number');
         annotationNumber.innerText = (+index + 1).toString();
-        annotationNumber.addEventListener('click', () => Annotations.hideAnnotation(index));
+        annotationNumber.addEventListener('click', () => Annotations.hide(index));
+
         const body = document.querySelector('body');
         body.appendChild(annotation);
         body.appendChild(annotationNumber);
     }
 
-    private static hideAnnotation(index) {
+    private static hide(index) {
         const annotation = document.querySelector('#annotation-' + index);
+        const annotationText = document.querySelector('#annotation-text-' + index);
         const hidden = annotation.classList.contains('hidden');
-        document.querySelector('#annotation-text-' + index).innerHTML = hidden ? Annotations.annotations[index].text : '';
+        annotationText.innerHTML = hidden ? Annotations.annotations[index].text : '';
         if (hidden)
             annotation.classList.remove('hidden');
         else
             annotation.classList.add('hidden');
     }
 
-    private static getClosestAnnotation() {
+    private static getClosest() {
         let indexOfClosest;
         let distToClosest = Math.pow(2, 32);
         for (const i in Annotations.annotations) {
             const camPos = camera.position;
-            const pPos = Annotations.annotations[i];
-            const dist = Math.sqrt(Math.pow((camPos.x - pPos.x),2) + Math.pow((camPos.y - pPos.y),2) + Math.pow((camPos.z - pPos.z),2));
+            const aPos = Annotations.annotations[i];
+            const dist = Math.sqrt(Math.pow((camPos.x - aPos.x),2) + Math.pow((camPos.y - aPos.y),2) + Math.pow((camPos.z - aPos.z),2));
             if (distToClosest > dist) {
                 distToClosest = dist;
                 indexOfClosest = +i;
@@ -72,12 +77,12 @@ class Annotations {
         return indexOfClosest;
     }
 
-    private static changeVisibilityOfAnnotations() {
+    private static changeVisibilityByDistance() {
         for (const i in Annotations.annotations) {
             const annotation = document.querySelector('#annotation-' + i) as HTMLFormElement;
             const annotationNumber = document.querySelector('#annotation-index-' + i) as HTMLFormElement;
-            annotation.style.zIndex = Annotations.getClosestAnnotation() === +i ? '1' : '0';
-            annotationNumber.style.zIndex = Annotations.getClosestAnnotation() === +i ? '1' : '0';
+            annotation.style.zIndex = Annotations.getClosest() === +i ? '1' : '0';
+            annotationNumber.style.zIndex = Annotations.getClosest() === +i ? '1' : '0';
         }
     }
 }
