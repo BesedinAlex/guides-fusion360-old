@@ -4,7 +4,9 @@ This small web site was made by students of [Moscow Polytechnic University](http
 
 Content of every guide may have different quality and usefulness depending on who exactly made the one.
 
-The site is made using [three.js](https://threejs.org) and [Bootstrap](https://getbootstrap.com).
+The site is made using [TypeScript](https://www.typescriptlang.org), [Bootstrap](https://getbootstrap.com) and [three.js](https://threejs.org).
+
+You need to compile TypeScript with `tsc` before loading to server.
 
 <hr>
 
