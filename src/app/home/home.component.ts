@@ -8,11 +8,10 @@ import {ContentService} from '../services/content.service';
 })
 export class HomeComponent {
 
-  private readonly guides;
+  readonly guides;
 
   constructor(private data: ContentService) {
-    this.guides = data.guides;
-    console.log(this.guides);
+    this.guides = data.previews;
   }
 
 }

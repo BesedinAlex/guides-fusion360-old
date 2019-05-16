@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to previews-fusion360!');
+    expect(page.getTitleText()).toEqual('Welcome to home-fusion360!');
   });
 
   afterEach(async () => {
