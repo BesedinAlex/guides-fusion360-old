@@ -1,6 +1,16 @@
-# GuidesFusion360
+# Beginner's guides to Fusion 360
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
+This small web site was made by students of [Moscow Polytechnic University](https://mospolytech.ru) for very beginners (especially pupils) who have never worked with [Autodesk Fusion 360](https://autodesk.com/products/fusion-360/overview).
+
+Content of every guide may have different quality and usefulness depending on who exactly made the one.
+
+## Angular/CLI
+
+In order to work with the site you will need to install few things first.
+
+Run `npm i typescript -g` to install [TypeScript](https://www.typescriptlang.org) on your computer.
+
+Run `npm i @angular/cli -g` to install [Angular](https://angular.io) on your computer.
 
 ## Development server
 
