@@ -1,19 +1,5 @@
-<header class="fixed-top">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="navbar-brand">FUSION360GUIDE</div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link"
-             [routerLink]="'/'"
-             routerLinkActive="active"
-             [routerLinkActiveOptions]="{exact: true}"
-          >Home</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<header class="py-1 fixed-top">
+  <div class="container">
+      <a class="navbar-brand" [routerLink]="'/'">FUSION360GUIDE</a>
+  </div>
 </header>
