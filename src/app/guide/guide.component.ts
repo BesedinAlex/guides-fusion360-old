@@ -30,40 +30,21 @@ export class GuideComponent {
   fillGuide(part) {
     this.currentPart.name = part.name;
     this.currentPart.content = [];
-    let mode = false;
-    let temp = '';
-    let currentIndex = 0;
-    let currentChar: string;
-    while (currentIndex !== part.content.length) {
-      currentChar = part.content[currentIndex];
-      switch (currentChar) {
-        case '@': // Image
-          if (!mode) {
-            this.currentPart.content.push({data: temp, code: 'text'});
-          } else {
-            const link = `../../assets/guides/${this.id}/img/${temp}`;
-            this.currentPart.content.push({data: link, id: temp.match(/[0-9]+/)[0], code: 'img'});
-          }
-          temp = '';
-          mode = !mode;
-          break;
-        case '%': // Video
-          const code = !mode ? 'text' : 'video';
-          this.currentPart.content.push({data: temp, code});
-          temp = '';
-          mode = !mode;
-          break;
-        case '$': // TODO: download Fusion parts
-          break;
-        default:
-          temp += currentChar;
-          break;
+    const parsedContent = part.content.split('^');
+    for (const line of parsedContent) {
+      if (/[0-9]+\.(?:jpg|png)$/gi.test(line)) {
+        const link = `../../assets/guides/${this.id}/img/${line}`;
+        this.currentPart.content.push({data: link, code: 'img'});
+      } else if (/https?:\/\/(www\.)?(\w+\.)+(\w+)(\/(\w+|\?*|=*|\.)+)*/gi.test(line)) {
+        this.currentPart.content.push({data: line, code: 'video'});
+      } else if (line.length > 0) {
+        this.currentPart.content.push({data: line, code: 'text'});
       }
-      currentIndex++;
     }
-    if (temp.length > 0) {
-      this.currentPart.content.push({data: temp, code: 'text'});
-    }
+  }
+
+  getImgId(data) {
+    return data.match(/[0-9]+/);
   }
 
 }

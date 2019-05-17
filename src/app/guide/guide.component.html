@@ -1,5 +1,5 @@
 <div class="container py-4">
-  <img src="../../assets/home/guide-{{id}}.png" class="mx-auto d-block my-4 img-fluid border rounded border" alt="preview of the model">
+  <img src="../../assets/home/guide-{{id}}.png" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
   <ul class="nav justify-content-center">
     <li class="px-2 py-2" *ngFor="let part of guide.parts">
       <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillGuide(part)">{{part.name}}</a>
@@ -14,11 +14,11 @@
         <div class="d-flex align-items-center flex-column" *ngFor="let part of currentPart.content">
 <!--          Text-->
           <p *ngIf="part.code === 'text'">{{part.data}}</p>
-<!--          Image-->
-          <img *ngIf="part.code === 'img'" class="guide-img" [src]="part.data" alt="">
-          <a *ngIf="part.code === 'img'" href="{{part.data}}">Рис. {{part.id}}</a>
+<!--          Image with link-->
+          <img *ngIf="part.code === 'img'" class="guide-img" [src]="part.data" alt="Visual presentation of above text.">
+          <a *ngIf="part.code === 'img'" href="{{part.data}}">Рис. {{getImgId(part.data)}}</a>
           <br *ngIf="part.code === 'img'">
-<!--          Video-->
+<!--          YouTube Video-->
           <div *ngIf="part.code === 'video'" class="embed-responsive-16by9">
             <iframe class="embed-responsive-item" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(part.data)" allowfullscreen></iframe>
           </div>
