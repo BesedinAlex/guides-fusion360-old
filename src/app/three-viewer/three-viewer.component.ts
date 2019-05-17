@@ -22,6 +22,7 @@ export class ThreeViewerComponent implements OnInit {
   private mouse: THREE.Vector2;
   private raycaster: THREE.Raycaster;
   private currentPoint: any;
+  private annotations;
 
   constructor(
     private elRef: ElementRef,
@@ -30,6 +31,7 @@ export class ThreeViewerComponent implements OnInit {
   ) {
     this.host = this.elRef.nativeElement;
     this.currentRoute.params.subscribe(param => this.id = param.id);
+    this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class ThreeViewerComponent implements OnInit {
     this.animate();
   }
 
-  private init() {
+  init() {
     this.scene = new THREE.Scene();
 
     this.scene.background = new THREE.Color(0xf0f0f0);
@@ -65,6 +67,11 @@ export class ThreeViewerComponent implements OnInit {
 
     window.addEventListener('resize', this.onWindowResize);
 
+    // tslint:disable-next-line:forin
+    for (const i in this.annotations) {
+      this.addAnnotation(i);
+    }
+
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
     window.addEventListener('click', this.getCoordinatesOfClick);
@@ -74,6 +81,21 @@ export class ThreeViewerComponent implements OnInit {
     requestAnimationFrame(this.animate);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
+    // tslint:disable-next-line:forin
+    // for (const i in this.annotations) {
+    //   const coords = this.annotations[i];
+    //   // @ts-ignore
+    //   const p2 = new THREE.Vector3(coords.x, coords.y, coords.z);
+    //   const annotation = document.querySelector('#annotation-' + i) as HTMLFormElement;
+    //   const annotationIndex = document.querySelector('#annotation-index-' + i) as HTMLFormElement;
+    //   p2.project(this.camera);
+    //   p2.x = Math.round((p2.x + 1) * this.renderer.domElement.width / 2 / window.devicePixelRatio);
+    //   p2.y = Math.round((-p2.y + 1) * this.renderer.domElement.height / 2 / window.devicePixelRatio);
+    //   annotation.style.left = p2.x + 'px';
+    //   annotation.style.top = p2.y + 'px';
+    //   annotationIndex.style.left = p2.x - 15 + 'px';
+    //   annotationIndex.style.top = p2.y - 15 + 'px';
+    // }
   }
 
   onWindowResize = () => {
@@ -93,4 +115,34 @@ export class ThreeViewerComponent implements OnInit {
     }
   }
 
+  addAnnotation(index) {
+    const annotation = document.createElement('div');
+    annotation.id = 'annotation-' + index;
+    annotation.classList.add('annotation', 'hidden');
+
+    const annotationText = document.createElement('p');
+    annotationText.id = 'annotation-text-' + index;
+    annotation.appendChild(annotationText);
+
+    const annotationNumber = document.createElement('div');
+    annotationNumber.id = 'annotation-index-' + index;
+    annotationNumber.classList.add('annotation-number');
+    annotationNumber.innerText = (+index + 1).toString();
+    annotationNumber.addEventListener('click', () => this.hide(index));
+
+    this.host.appendChild(annotation);
+    this.host.appendChild(annotationNumber);
+  }
+
+  hide(index) {
+    const annotation = document.querySelector('#annotation-' + index);
+    const annotationText = document.querySelector('#annotation-text-' + index);
+    const hidden = annotation.classList.contains('hidden');
+    annotationText.innerHTML = hidden ? this.annotations[index].text : '';
+    if (hidden) {
+      annotation.classList.remove('hidden');
+    } else {
+      annotation.classList.add('hidden');
+    }
+  }
 }

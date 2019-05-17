@@ -11,5 +11,7 @@ export class ContentService {
   previews = this.data.default.home;
   // @ts-ignore
   guides = this.data.default.guides;
+  // @ts-ignore
+  annotations = this.data.default.annotations;
 
 }
