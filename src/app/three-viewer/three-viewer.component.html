@@ -1,0 +1,9 @@
+<div *ngFor="let annotation of annotations" id="annotation-{{annotation.index}}" class="annotation hidden">
+  <p id="annotation-text-{{annotation.index}}"></p>
+</div>
+<div *ngFor="let annotation of annotations"
+     id="annotation-index-{{annotation.index}}"
+     class="annotation-number"
+     (click)="hideAnnotation(annotation.index)">
+  {{annotation.index}}
+</div>
