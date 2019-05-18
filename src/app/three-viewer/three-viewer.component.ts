@@ -13,6 +13,7 @@ import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader';
 })
 export class ThreeViewerComponent implements OnInit {
 
+  readonly annotations;
   private id: number;
   private host: HTMLElement;
   private scene: THREE.Scene;
@@ -22,7 +23,6 @@ export class ThreeViewerComponent implements OnInit {
   private mouse: THREE.Vector2;
   private raycaster: THREE.Raycaster;
   private currentPoint: any;
-  private annotations;
 
   constructor(
     private elRef: ElementRef,
@@ -67,11 +67,6 @@ export class ThreeViewerComponent implements OnInit {
 
     window.addEventListener('resize', this.onWindowResize);
 
-    // tslint:disable-next-line:forin
-    for (const i in this.annotations) {
-      this.addAnnotation(i);
-    }
-
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
     window.addEventListener('click', this.getCoordinatesOfClick);
@@ -81,21 +76,22 @@ export class ThreeViewerComponent implements OnInit {
     requestAnimationFrame(this.animate);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-    // tslint:disable-next-line:forin
-    // for (const i in this.annotations) {
-    //   const coords = this.annotations[i];
-    //   // @ts-ignore
-    //   const p2 = new THREE.Vector3(coords.x, coords.y, coords.z);
-    //   const annotation = document.querySelector('#annotation-' + i) as HTMLFormElement;
-    //   const annotationIndex = document.querySelector('#annotation-index-' + i) as HTMLFormElement;
-    //   p2.project(this.camera);
-    //   p2.x = Math.round((p2.x + 1) * this.renderer.domElement.width / 2 / window.devicePixelRatio);
-    //   p2.y = Math.round((-p2.y + 1) * this.renderer.domElement.height / 2 / window.devicePixelRatio);
-    //   annotation.style.left = p2.x + 'px';
-    //   annotation.style.top = p2.y + 'px';
-    //   annotationIndex.style.left = p2.x - 15 + 'px';
-    //   annotationIndex.style.top = p2.y - 15 + 'px';
-    // }
+    const width = this.renderer.domElement.width / 2 / window.devicePixelRatio;
+    const height = this.renderer.domElement.height / 2 / window.devicePixelRatio;
+    for (const obj of this.annotations) {
+      const coords = obj;
+      const p2 = new THREE.Vector3(coords.x, coords.y, coords.z);
+      const annotation = document.querySelector('#annotation-' + obj.index) as HTMLFormElement;
+      const annotationIndex = document.querySelector('#annotation-index-' + obj.index) as HTMLFormElement;
+      p2.project(this.camera);
+      p2.x = Math.round((p2.x + 1) * width);
+      p2.y = Math.round((-p2.y + 1) * height);
+      annotation.style.left = p2.x + 'px';
+      annotation.style.top = p2.y + 'px';
+      annotationIndex.style.left = p2.x - 15 + 'px';
+      annotationIndex.style.top = p2.y - 15 + 'px';
+    }
+    this.changeVisibilityByDistance();
   }
 
   onWindowResize = () => {
@@ -115,34 +111,40 @@ export class ThreeViewerComponent implements OnInit {
     }
   }
 
-  addAnnotation(index) {
-    const annotation = document.createElement('div');
-    annotation.id = 'annotation-' + index;
-    annotation.classList.add('annotation', 'hidden');
-
-    const annotationText = document.createElement('p');
-    annotationText.id = 'annotation-text-' + index;
-    annotation.appendChild(annotationText);
-
-    const annotationNumber = document.createElement('div');
-    annotationNumber.id = 'annotation-index-' + index;
-    annotationNumber.classList.add('annotation-number');
-    annotationNumber.innerText = (+index + 1).toString();
-    annotationNumber.addEventListener('click', () => this.hide(index));
-
-    this.host.appendChild(annotation);
-    this.host.appendChild(annotationNumber);
-  }
-
-  hide(index) {
+  hideAnnotation(index) {
     const annotation = document.querySelector('#annotation-' + index);
     const annotationText = document.querySelector('#annotation-text-' + index);
     const hidden = annotation.classList.contains('hidden');
-    annotationText.innerHTML = hidden ? this.annotations[index].text : '';
+    const text = this.annotations.find(obj => obj.index === index).text;
+    annotationText.innerHTML = hidden ? text : '';
     if (hidden) {
       annotation.classList.remove('hidden');
     } else {
       annotation.classList.add('hidden');
     }
   }
+
+  getClosest() {
+    let indexOfClosest;
+    let distToClosest = Number.MAX_VALUE;
+    for (const obj of this.annotations) {
+      const camPos = this.camera.position;
+      const dist = Math.sqrt(Math.pow((camPos.x - obj.x), 2) + Math.pow((camPos.y - obj.y), 2) + Math.pow((camPos.z - obj.z), 2));
+      if (distToClosest > dist) {
+        distToClosest = dist;
+        indexOfClosest = obj.index;
+      }
+    }
+    return indexOfClosest;
+  }
+
+  changeVisibilityByDistance() {
+    for (const obj of this.annotations) {
+      const annotation = document.querySelector('#annotation-' + obj.index) as HTMLFormElement;
+      const annotationNumber = document.querySelector('#annotation-index-' + obj.index) as HTMLFormElement;
+      annotation.style.zIndex = this.getClosest() === obj.index ? '1' : '0';
+      annotationNumber.style.zIndex = this.getClosest() === obj.index ? '1' : '0';
+    }
+  }
+
 }
