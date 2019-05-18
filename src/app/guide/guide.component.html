@@ -5,6 +5,7 @@
     <li class="px-2 py-2" *ngFor="let part of guide.parts">
       <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillGuide(part)">{{part.name}}</a>
     </li>
+    <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', id]">Посмотреть в 3D</a></li>
   </ul>
 </div>
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
