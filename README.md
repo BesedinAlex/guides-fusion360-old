@@ -6,7 +6,7 @@ Every guide may have different quality and usefulness depending on who exactly m
 
 ## Basic stuff
 
-The site is made with Angular. In order to work with the site you will need to install few things first.
+The site is made with Angular. Also it uses some [Bootstrap](https://getbootstrap.com) for visual stuff and [three.js](https://threejs.org) for 3D viewer. In order to work with the site you will need to install few things first.
 
 Run `npm i typescript -g` to install [TypeScript](https://www.typescriptlang.org) on your computer.
 
