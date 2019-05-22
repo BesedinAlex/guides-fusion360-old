@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ContentService} from '../services/content.service';
 import * as THREE from 'three';
@@ -11,7 +11,7 @@ import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader';
   templateUrl: './three-viewer.component.html',
   styleUrls: ['./three-viewer.component.sass']
 })
-export class ThreeViewerComponent implements OnInit {
+export class ThreeViewerComponent implements OnInit, OnDestroy {
 
   readonly annotations;
   private id: number;
@@ -23,6 +23,7 @@ export class ThreeViewerComponent implements OnInit {
   private mouse: THREE.Vector2;
   private raycaster: THREE.Raycaster;
   private currentPoint: any;
+  private animationStopped: boolean;
 
   constructor(
     private elRef: ElementRef,
@@ -34,9 +35,14 @@ export class ThreeViewerComponent implements OnInit {
     this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
   }
 
-  ngOnInit() {
-    this.init();
+  async ngOnInit() {
+    this.animationStopped = false;
+    await this.init();
     this.animate();
+  }
+
+  ngOnDestroy() {
+    this.animationStopped = true;
   }
 
   init() {
@@ -73,6 +79,9 @@ export class ThreeViewerComponent implements OnInit {
   }
 
   animate = () => {
+    if (this.animationStopped) {
+      return;
+    }
     requestAnimationFrame(this.animate);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
