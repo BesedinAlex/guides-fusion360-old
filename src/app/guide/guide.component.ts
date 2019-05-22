@@ -47,7 +47,7 @@ export class GuideComponent {
   }
 
   getImgId(data) {
-    return data.match(/[0-9]+/);
+    return data.match(/[0-9]+/g)[1];
   }
 
 }
