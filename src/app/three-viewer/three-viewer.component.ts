@@ -71,11 +71,11 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     this.controls.rotateSpeed = 2;
     this.controls.zoomSpeed = 2;
 
-    window.addEventListener('resize', this.onWindowResize);
+    this.host.addEventListener('resize', this.onWindowResize);
 
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
-    window.addEventListener('click', this.getCoordinatesOfClick);
+    this.host.addEventListener('click', this.getCoordinatesOfClick);
   }
 
   animate = () => {
@@ -100,7 +100,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
       annotationIndex.style.left = p2.x - 15 + 'px';
       annotationIndex.style.top = p2.y - 15 + 'px';
     }
-    this.changeVisibilityByDistance();
+    this.changeVisibilityByDistanceOfAnnotations();
   }
 
   onWindowResize = () => {
@@ -133,7 +133,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClosest() {
+  getClosestAnnotation() {
     let indexOfClosest;
     let distToClosest = Number.MAX_VALUE;
     for (const obj of this.annotations) {
@@ -147,12 +147,12 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     return indexOfClosest;
   }
 
-  changeVisibilityByDistance() {
+  changeVisibilityByDistanceOfAnnotations() {
     for (const obj of this.annotations) {
       const annotation = document.querySelector('#annotation-' + obj.index) as HTMLFormElement;
       const annotationNumber = document.querySelector('#annotation-index-' + obj.index) as HTMLFormElement;
-      annotation.style.zIndex = this.getClosest() === obj.index ? '1' : '0';
-      annotationNumber.style.zIndex = this.getClosest() === obj.index ? '1' : '0';
+      annotation.style.zIndex = this.getClosestAnnotation() === obj.index ? '1' : '0';
+      annotationNumber.style.zIndex = this.getClosestAnnotation() === obj.index ? '1' : '0';
     }
   }
 

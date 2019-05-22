@@ -27,7 +27,7 @@ export class GuideComponent {
     }
   }
 
-  fillGuide(part) {
+  fillModalWindow(part) {
     this.currentPart.name = part.name;
     this.currentPart.content = [];
     const parsedContent = part.content.split('^');
