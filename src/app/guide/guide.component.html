@@ -22,7 +22,7 @@
             <iframe class="embed-responsive-item" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(part.data)" allowfullscreen></iframe>
           </div>
 <!--          .zip file-->
-          <a *ngIf="part.code === 'parts'" class="download" [href]="part.data" download="parts.zip">Готовые детали</a>
+          <a *ngIf="part.code === 'parts'" [href]="part.data" download="parts.zip">Готовые детали</a>
           <br *ngIf="part.code === 'parts'">
 <!--          Text-->
           <p *ngIf="part.code === 'text'">{{part.data}}</p>
