@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ContentService} from '../services/content.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {ContentService} from '../services/content.service';
 
 @Component({
   selector: 'app-guide',

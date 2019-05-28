@@ -14,7 +14,7 @@
       <div class="modal-header"><h5 class="modal-title" id="modal-title">{{currentPart.name}}</h5></div>
       <div class="modal-body" id="modal-body">
         <div class="d-flex align-items-center flex-column" *ngFor="let part of currentPart.content">
-<!--          Image with link-->
+<!--          Image-->
           <img *ngIf="part.code === 'img'" class="guide-img" [src]="part.data" alt="Visual presentation of above text.">
           <p *ngIf="part.code === 'img'">Рис. {{getImgId(part.data)}}</p>
 <!--          YouTube Video-->
