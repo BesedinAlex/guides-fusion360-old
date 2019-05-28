@@ -32,7 +32,7 @@ export class GuideComponent {
     this.currentPart.content = [];
     const parsedContent = part.content.split('^');
     for (const line of parsedContent) {
-      if (/[0-9]+\.(?:jpg|png)$/gi.test(line)) { // Image
+      if (/[0-9]+\.(?:jpg|png|JPG|PNG)$/gi.test(line)) { // Image
         const link = `../../assets/guides/${this.id}/img/${line}`;
         this.currentPart.content.push({data: link, code: 'img'});
       } else if (/https?:\/\/(www\.)?(\w+\.)+(\w+)(\/(\w+|\?*|=*|\.)+)*/gi.test(line)) { // Video
