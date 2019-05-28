@@ -6,12 +6,11 @@ import * as content from '../../assets/content.json';
 })
 export class ContentService {
 
-  private data = content;
   // @ts-ignore
-  previews = this.data.default.home;
+  previews = content.default.home;
   // @ts-ignore
-  guides = this.data.default.guides;
+  guides = content.default.guides;
   // @ts-ignore
-  annotations = this.data.default.annotations;
+  annotations = content.default.annotations;
 
 }
