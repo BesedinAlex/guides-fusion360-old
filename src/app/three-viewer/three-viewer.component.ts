@@ -32,7 +32,11 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   ) {
     this.host = this.elRef.nativeElement;
     this.currentRoute.params.subscribe(param => this.id = param.id);
-    this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
+    try {
+      this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
+    } catch (e) {
+      this.annotations = [];
+    }
   }
 
   async ngOnInit() {
