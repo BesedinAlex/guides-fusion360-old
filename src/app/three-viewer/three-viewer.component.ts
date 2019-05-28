@@ -55,9 +55,24 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
 
   init() {
     this.scene = new THREE.Scene();
-
     this.scene.background = new THREE.Color(0xf0f0f0);
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    dirLight.color.setHSL(0.1, 1, 0.95);
+    dirLight.position.set(1, 1, 1);
+    dirLight.position.multiplyScalar(30);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.left = -50;
+    dirLight.shadow.camera.right = 50;
+    dirLight.shadow.camera.top = 50;
+    dirLight.shadow.camera.bottom = -50;
+    dirLight.shadow.camera.far = 3500;
+    dirLight.shadow.bias = -0.0001;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    this.scene.add(dirLight);
 
     new MTLLoader().load(`../../assets/guides/${this.id}/model.mtl`, (materials) => {
       materials.preload();
