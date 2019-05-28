@@ -22,7 +22,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   private controls: TrackballControls;
   private mouse: THREE.Vector2;
   private raycaster: THREE.Raycaster;
-  private currentPoint: any;
+  private currentPoint: {x: number, y: number, z: number};
   private animationStopped: boolean;
 
   constructor(
@@ -42,7 +42,15 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.scene = undefined;
+    this.camera = undefined;
+    this.renderer = undefined;
+    this.controls = undefined;
+    this.mouse = undefined;
+    this.currentPoint = undefined;
     this.animationStopped = true;
+    this.host.removeEventListener('click', this.getCoordinatesOfClick);
+    window.removeEventListener('resize', this.onWindowResize);
   }
 
   init() {
@@ -71,11 +79,11 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     this.controls.rotateSpeed = 2;
     this.controls.zoomSpeed = 2;
 
-    this.host.addEventListener('resize', this.onWindowResize);
-
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
     this.host.addEventListener('click', this.getCoordinatesOfClick);
+
+    window.addEventListener('resize', this.onWindowResize);
   }
 
   animate = () => {
