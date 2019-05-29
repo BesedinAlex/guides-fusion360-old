@@ -10,9 +10,9 @@ import {ContentService} from '../services/content.service';
 })
 export class GuideComponent {
 
-  readonly guide;
-  currentPart = {name: '', content: [] = []};
   id: number;
+  currentPart = {name: '', content: [] = []};
+  readonly guide;
 
   constructor(
     private router: Router,
@@ -47,7 +47,7 @@ export class GuideComponent {
   }
 
   getImgId(data) {
-    return data.match(/[0-9]+/g)[1];
+    return +data.match(/[0-9]+/g)[1];
   }
 
 }

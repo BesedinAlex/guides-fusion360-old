@@ -13,8 +13,8 @@ import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader';
 })
 export class ThreeViewerComponent implements OnInit, OnDestroy {
 
+  id: number;
   readonly annotations;
-  private id: number;
   private host: HTMLElement;
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
