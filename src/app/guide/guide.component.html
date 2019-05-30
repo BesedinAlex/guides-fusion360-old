@@ -18,7 +18,7 @@
           <img *ngIf="part.code === 'img'" class="guide-img" [src]="part.data" alt="Visual presentation of above text.">
           <p *ngIf="part.code === 'img'">Рис. {{getImgId(part.data)}}</p>
 <!--          YouTube Video-->
-          <div *ngIf="part.code === 'video'" class="embed-responsive-16by9">
+          <div *ngIf="part.code === 'video'" class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" [src]="this.sanitizer.bypassSecurityTrustResourceUrl(part.data)" allowfullscreen></iframe>
           </div>
 <!--          .zip file-->
