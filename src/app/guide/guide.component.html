@@ -13,9 +13,9 @@
     <div class="modal-content">
       <div class="modal-header"><h5 class="modal-title" id="modal-title">{{currentPart.name}}</h5></div>
       <div class="modal-body" id="modal-body">
-        <div class="d-flex align-items-center flex-column" *ngFor="let part of currentPart.content">
+        <div class="body align-items-center flex-column d-flex" *ngFor="let part of currentPart.content">
 <!--          Image-->
-          <img *ngIf="part.code === 'img'" class="guide-img" [src]="part.data" alt="Visual presentation of above text.">
+          <img *ngIf="part.code === 'img'" class="img" [src]="part.data" alt="Visual presentation of above text.">
           <p *ngIf="part.code === 'img'">Рис. {{getImgId(part.data)}}</p>
 <!--          YouTube Video-->
           <div *ngIf="part.code === 'video'" class="embed-responsive embed-responsive-16by9">
@@ -25,7 +25,7 @@
           <a *ngIf="part.code === 'parts'" [href]="part.data" download="Готовые детали.zip">Готовые детали</a>
           <br *ngIf="part.code === 'parts'">
 <!--          Text-->
-          <p *ngIf="part.code === 'text'">{{part.data}}</p>
+          <p *ngIf="part.code === 'text'" class="text">{{part.data}}</p>
         </div>
       </div>
       <div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button></div>
