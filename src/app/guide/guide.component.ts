@@ -44,7 +44,6 @@ export class GuideComponent {
         this.currentPart.content.push({data: line, code: 'text'});
       }
     }
-    window.scrollTo(0, 0);
   }
 
   getImgId(data) {
