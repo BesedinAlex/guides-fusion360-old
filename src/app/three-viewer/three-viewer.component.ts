@@ -78,12 +78,12 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     dirLight.shadow.mapSize.height = 2048;
     this.scene.add(dirLight);
 
-    new MTLLoader().load(`../../assets/guides/${this.id}/model.mtl`, (materials) => {
+    new MTLLoader().load(`./assets/guides/${this.id}/model.mtl`, (materials) => {
       materials.preload();
       const objLoader = new OBJLoader();
       // @ts-ignore
       objLoader.setMaterials(materials);
-      objLoader.load(`../../assets/guides/${this.id}/model.obj`, (mesh) => this.scene.add(mesh));
+      objLoader.load(`./assets/guides/${this.id}/model.obj`, (mesh) => this.scene.add(mesh));
     });
 
     this.renderer = new THREE.WebGLRenderer({antialias: true});
