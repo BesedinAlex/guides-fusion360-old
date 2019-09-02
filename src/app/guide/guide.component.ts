@@ -33,12 +33,12 @@ export class GuideComponent {
     const parsedContent = part.content.split('^');
     for (const line of parsedContent) {
       if (/[0-9]+\.(?:jpg|png|JPG|PNG)$/gi.test(line)) { // Image
-        const link = `../../assets/guides/${this.id}/img/${line}`;
+        const link = `./assets/guides/${this.id}/img/${line}`;
         this.currentPart.content.push({data: link, code: 'img'});
       } else if (/https?:\/\/(www\.)?(\w+\.)+(\w+)(\/(\w+|\?*|=*|\.)+)*/gi.test(line)) { // Video
         this.currentPart.content.push({data: line, code: 'video'});
       } else if (/parts\.zip/gi.test(line)) { // .zip file
-        const link = `../../assets/guides/${this.id}/parts.zip`;
+        const link = `./assets/guides/${this.id}/parts.zip`;
         this.currentPart.content.push({data: link, code: 'parts'});
       } else if (line.length > 0) { // Text
         this.currentPart.content.push({data: line, code: 'text'});
