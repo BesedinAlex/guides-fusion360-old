@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ContentService} from '../../services/content.service';
 
 @Component({
   selector: 'app-guide',
@@ -14,6 +13,7 @@ export class GuideComponent {
   currentPart = {name: '', content: [] = []};
   readonly guide;
 
+  // TODO: Separate service for data of this component.
   constructor(
     private router: Router,
     private currentRoute: ActivatedRoute,

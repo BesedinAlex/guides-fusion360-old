@@ -9,6 +9,7 @@ import Guide from '../../interfaces/guide';
 })
 export class HomeComponent implements OnInit {
 
+  // TODO: Move all the data to server database.
   guides: Guide[];
 
   constructor(private data: HomePageDataService) {

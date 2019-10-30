@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ContentService} from '../../services/content.service';
 import * as THREE from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
 import {MTLLoader} from 'three/examples/jsm/loaders/MTLLoader';
@@ -26,6 +25,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   private currentPoint: { x: number, y: number, z: number };
   private animationStopped: boolean;
 
+  // TODO: Save annotations on server database.
   constructor(
     private elRef: ElementRef,
     private currentRoute: ActivatedRoute,

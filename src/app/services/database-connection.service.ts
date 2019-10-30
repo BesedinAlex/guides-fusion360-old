@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class DatabaseConnectionService {
 
   private baseUrl = 'http://localhost:4000/';
-  options: HttpHeaders;
+  private options: HttpHeaders;
 
   constructor(public http: HttpClient) {
     this.options = new HttpHeaders();
@@ -51,15 +51,15 @@ export class DatabaseConnectionService {
     return this.get(url, this.options).toPromise();
   }
 
-  async postData(url: string, data: any): Promise<any> {
+  protected async postData(url: string, data: any): Promise<any> {
     return this.post(url, data, this.options).toPromise();
   }
 
-  async putData(url: string, id: number, data: any): Promise<any> {
+  protected async putData(url: string, id: number, data: any): Promise<any> {
     return this.put(url + '/' + id, data, this.options).toPromise();
   }
 
-  async deleteData(url: string, id: number): Promise<any> {
+  protected async deleteData(url: string, id: number): Promise<any> {
     return this.delete(url + '/' + id, this.options).toPromise();
   }
 }
