@@ -1,17 +1,15 @@
 import {Injectable} from '@angular/core';
 import {DatabaseConnectionService} from './database-connection.service';
+import Guide from '../interfaces/guide';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomePageDataService extends DatabaseConnectionService {
 
-  private data: [];
-
-  async getPreviewData() {
+  async getHomePageData(): Promise<Guide[]> {
     try {
-      this.data = await this.getData('preview');
-      return this.data;
+      return await this.getData('home');
     } catch (err) {
       alert('Unable to access database. Try again.');
     }

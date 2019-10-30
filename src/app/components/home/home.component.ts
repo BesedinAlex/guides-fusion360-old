@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ContentService} from '../../services/content.service';
 import {HomePageDataService} from '../../services/home-page-data.service';
+import Guide from '../../interfaces/guide';
 
 @Component({
   selector: 'app-guides',
@@ -9,17 +9,13 @@ import {HomePageDataService} from '../../services/home-page-data.service';
 })
 export class HomeComponent implements OnInit {
 
-  readonly guides;
+  guides: Guide[];
 
-  constructor(
-    private data: ContentService,
-    private test: HomePageDataService
-  ) {
-    this.guides = data.previews;
+  constructor(private data: HomePageDataService) {
   }
 
   async ngOnInit() {
-    const test = await this.test.getPreviewData();
-    console.log(test);
+    this.guides = await this.data.getHomePageData();
+    console.log(this.guides);
   }
 }
