@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <div class="container py-4">
   <img src="./assets/home/guide-{{id}}.png" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
   <ul class="nav justify-content-center">
@@ -8,6 +9,7 @@
     <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', id]">Посмотреть в 3D</a></li>
   </ul>
 </div>
+
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">

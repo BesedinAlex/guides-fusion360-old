@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ContentService} from '../services/content.service';
+import {ContentService} from '../../services/content.service';
 import * as THREE from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
 import {MTLLoader} from 'three/examples/jsm/loaders/MTLLoader';
@@ -15,6 +15,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
 
   id: number;
   readonly annotations;
+
   private host: HTMLElement;
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
@@ -22,7 +23,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   private controls: TrackballControls;
   private mouse: THREE.Vector2;
   private raycaster: THREE.Raycaster;
-  private currentPoint: {x: number, y: number, z: number};
+  private currentPoint: { x: number, y: number, z: number };
   private animationStopped: boolean;
 
   constructor(
@@ -136,7 +137,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
-  getCoordinatesOfClick = (event) => {
+  getCoordinatesOfClick = (event: MouseEvent) => {
     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     this.raycaster.setFromCamera(this.mouse, this.camera);
@@ -147,7 +148,7 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
     }
   }
 
-  hideAnnotation(index) {
+  hideAnnotation(index: number) {
     const annotation = document.querySelector('#annotation-' + index);
     const annotationText = document.querySelector('#annotation-text-' + index);
     const hidden = annotation.classList.contains('hidden');

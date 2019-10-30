@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ContentService} from '../services/content.service';
+import {ContentService} from '../../services/content.service';
 
 @Component({
   selector: 'app-guide',
@@ -46,8 +46,7 @@ export class GuideComponent {
     }
   }
 
-  getImgId(data) {
+  getImgId(data: string): number {
     return +data.match(/[0-9]+/g)[1];
   }
-
 }

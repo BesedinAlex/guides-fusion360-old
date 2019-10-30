@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ContentService} from '../services/content.service';
+import {Component} from '@angular/core';
+import {ContentService} from '../../services/content.service';
 
 @Component({
   selector: 'app-guides',
@@ -13,5 +13,4 @@ export class HomeComponent {
   constructor(private data: ContentService) {
     this.guides = data.previews;
   }
-
 }
