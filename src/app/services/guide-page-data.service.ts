@@ -7,7 +7,15 @@ import PartGuide from '../interfaces/part-guide';
 })
 export class GuidePageDataService extends DatabaseConnectionService {
 
-  async getHomePageData(guideId: number): Promise<PartGuide[]> {
+  async getGuideImage(guideId: number): Promise<string> {
+    try {
+      return await this.getData(`guide-img?guideId=${guideId}`);
+    } catch (err) {
+      alert('Unable to access database. Try again.');
+    }
+  }
+
+  async getGuidePageData(guideId: number): Promise<PartGuide[]> {
     try {
       return await this.getData(`guide?guideId=${guideId}`);
     } catch (err) {

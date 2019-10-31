@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="container py-4">
-  <img src="./assets/home/guide-{{guideId}}.png" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
+  <img src="{{serverURL}}/images/home/{{guideImage}}" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
   <ul class="nav justify-content-center">
     <li class="px-2 py-2" *ngFor="let guide of guides">
       <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillModalWindow(guide)">{{guide.name}}</a>

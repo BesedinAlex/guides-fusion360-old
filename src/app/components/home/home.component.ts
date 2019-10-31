@@ -24,5 +24,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.guides = undefined;
+    this.serverURL = undefined;
   }
 }
