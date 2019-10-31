@@ -1,25 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {ContentService} from '../../services/content.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HomePageDataService} from '../../services/home-page-data.service';
+import {serverURL} from '../../services/server-url';
+import Guide from '../../interfaces/guide';
 
 @Component({
   selector: 'app-guides',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  readonly guides;
+  // TODO: Move all the data to server database.
+  guides: Guide[];
+  serverURL: string;
 
-  constructor(
-    private data: ContentService,
-    private test: HomePageDataService
-  ) {
-    this.guides = data.previews;
+  constructor(private data: HomePageDataService) {
+    this.serverURL = serverURL;
   }
 
   async ngOnInit() {
-    const test = await this.test.getPreviewData();
-    console.log(test);
+    this.guides = await this.data.getHomePageData();
+  }
+
+  ngOnDestroy() {
+    this.guides = undefined;
+    this.serverURL = undefined;
   }
 }

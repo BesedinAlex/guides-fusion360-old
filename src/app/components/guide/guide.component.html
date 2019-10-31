@@ -1,12 +1,12 @@
 <app-header></app-header>
 
 <div class="container py-4">
-  <img src="./assets/home/guide-{{id}}.png" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
+  <img src="{{serverURL}}/images/home/{{guideImage}}" class="mx-auto d-block my-4 img-fluid border rounded border" alt="Preview of the model.">
   <ul class="nav justify-content-center">
-    <li class="px-2 py-2" *ngFor="let part of guide.parts">
-      <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillModalWindow(part)">{{part.name}}</a>
+    <li class="px-2 py-2" *ngFor="let guide of guides">
+      <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillModalWindow(guide)">{{guide.name}}</a>
     </li>
-    <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', id]">Посмотреть в 3D</a></li>
+<!--    <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', guideId]">Посмотреть в 3D</a></li>-->
   </ul>
 </div>
 

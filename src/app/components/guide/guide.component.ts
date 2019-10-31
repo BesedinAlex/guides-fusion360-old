@@ -1,44 +1,69 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ContentService} from '../../services/content.service';
+import {GuidePageDataService} from '../../services/guide-page-data.service';
+import {serverURL} from '../../services/server-url';
+import PartGuide from '../../interfaces/part-guide';
+
+interface CurrentPart {
+  name: string;
+  content: { data: string, code: string }[];
+}
 
 @Component({
   selector: 'app-guide',
   templateUrl: './guide.component.html',
   styleUrls: ['./guide.component.sass']
 })
-export class GuideComponent {
+export class GuideComponent implements OnInit, OnDestroy {
 
-  id: number;
-  currentPart = {name: '', content: [] = []};
-  readonly guide;
+  serverURL: string;
+  guideId: number;
+  guideImage: string;
+  currentPart: CurrentPart;
+  guides: PartGuide[];
 
   constructor(
     private router: Router,
     private currentRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private data: ContentService
+    private data: GuidePageDataService
   ) {
-    this.currentRoute.params.subscribe(param => this.id = param.id);
-    this.guide = this.data.guides.find(guide => guide.id === +this.id);
-    if (this.guide === undefined) {
-      this.router.navigate(['/']);
-    }
+    this.currentRoute.params.subscribe(param => this.guideId = param.id);
+    this.currentPart = {name: '', content: [] = []};
+    this.guides = [];
+    this.serverURL = serverURL;
   }
 
-  fillModalWindow(part) {
+  async ngOnInit() {
+    this.guides = await this.data.getGuidePageData(this.guideId);
+    if (this.guides.length === 0) {
+      this.router.navigate(['/']);
+    }
+    this.guides.sort((a: PartGuide, b: PartGuide) => a.sortKey > b.sortKey ? 1 : -1);
+    this.guideImage = await this.data.getGuideImage(this.guideId);
+  }
+
+  ngOnDestroy() {
+    this.guideId = undefined;
+    this.currentPart = undefined;
+    this.guides = undefined;
+    this.serverURL = undefined;
+    this.guideImage = undefined;
+  }
+
+  fillModalWindow(part: PartGuide) {
     this.currentPart.name = part.name;
     this.currentPart.content = [];
     const parsedContent = part.content.split('^');
     for (const line of parsedContent) {
       if (/[0-9]+\.(?:jpg|png|JPG|PNG)$/gi.test(line)) { // Image
-        const link = `./assets/guides/${this.id}/img/${line}`;
+        const link = `${this.serverURL}/images/guide/${this.guideId}/${line}`;
         this.currentPart.content.push({data: link, code: 'img'});
-      } else if (/https?:\/\/(www\.)?(\w+\.)+(\w+)(\/(\w+|\?*|=*|\.)+)*/gi.test(line)) { // Video
+      } else if (/https?:\/\/(www\.)?(\w+\.)+(\w+)(\/(\w+|\?*|=*|\.)+)*/gi.test(line)) { // YouTube Video
         this.currentPart.content.push({data: line, code: 'video'});
       } else if (/parts\.zip/gi.test(line)) { // .zip file
-        const link = `./assets/guides/${this.id}/parts.zip`;
+        const link = `${this.serverURL}/models/${this.guideId}/parts.zip`;
         this.currentPart.content.push({data: link, code: 'parts'});
       } else if (line.length > 0) { // Text
         this.currentPart.content.push({data: line, code: 'text'});
@@ -47,6 +72,8 @@ export class GuideComponent {
   }
 
   getImgId(data: string): number {
-    return +data.match(/[0-9]+/g)[1];
+    const filename = data.match(/[0-9]+\.(?:jpg|png|JPG|PNG)$/gi)[0];
+    const id = filename.slice(0, filename.length - 4);
+    return Number(id);
   }
 }
