@@ -28,13 +28,13 @@ export class ThreeViewerComponent implements OnInit, OnDestroy {
   // TODO: Save annotations on server database.
   constructor(
     private elRef: ElementRef,
-    private currentRoute: ActivatedRoute,
-    private data: ContentService
+    private currentRoute: ActivatedRoute
   ) {
     this.host = this.elRef.nativeElement;
     this.currentRoute.params.subscribe(param => this.id = param.id);
     try {
-      this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
+      this.annotations = [];
+      // this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
     } catch (e) {
       this.annotations = [];
     }

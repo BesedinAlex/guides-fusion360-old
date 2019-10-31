@@ -1,22 +1,24 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {serverURL} from './server-url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseConnectionService {
 
-  private baseUrl = 'http://localhost:4000/';
-  private options: HttpHeaders;
+  private readonly baseUrl: string;
+  private readonly options: HttpHeaders;
 
   constructor(public http: HttpClient) {
+    this.baseUrl = serverURL;
     this.options = new HttpHeaders();
     this.options = this.options.set('Content-Type', 'application/json');
   }
 
   private getUrl(url = ''): string {
-    return this.baseUrl + url;
+    return this.baseUrl + '/' + url;
   }
 
   private get(url = '', header: HttpHeaders): Observable<any> {
