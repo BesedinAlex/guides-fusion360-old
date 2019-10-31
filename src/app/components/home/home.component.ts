@@ -11,8 +11,8 @@ import Guide from '../../interfaces/guide';
 export class HomeComponent implements OnInit, OnDestroy {
 
   // TODO: Move all the data to server database.
-  private guides: Guide[];
-  private serverURL: string;
+  guides: Guide[];
+  serverURL: string;
 
   constructor(private data: HomePageDataService) {
     this.serverURL = serverURL;

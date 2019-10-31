@@ -17,11 +17,11 @@ interface CurrentPart {
 })
 export class GuideComponent implements OnInit, OnDestroy {
 
-  private serverURL: string;
-  private guideId: number;
-  private guideImage: string;
-  private currentPart: CurrentPart;
-  private guides: PartGuide[];
+  serverURL: string;
+  guideId: number;
+  guideImage: string;
+  currentPart: CurrentPart;
+  guides: PartGuide[];
 
   constructor(
     private router: Router,
