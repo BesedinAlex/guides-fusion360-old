@@ -9,6 +9,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {HomeComponent} from './components/home/home.component';
 import {GuideComponent} from './components/guide/guide.component';
 import {ThreeViewerComponent} from './components/three-viewer/three-viewer.component';
+import {CreateGuideComponent} from './components/create-guide/create-guide.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ThreeViewerComponent} from './components/three-viewer/three-viewer.compo
     FooterComponent,
     HomeComponent,
     GuideComponent,
-    ThreeViewerComponent
+    ThreeViewerComponent,
+    CreateGuideComponent
   ],
   imports: [
     BrowserModule,
