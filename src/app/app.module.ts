@@ -7,9 +7,10 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {HomeComponent} from './components/home/home.component';
-import {GuideComponent} from './components/guide/guide.component';
-import {ThreeViewerComponent} from './components/three-viewer/three-viewer.component';
-import {CreateGuideComponent} from './components/create-guide/create-guide.component';
+import {ViewGuideComponent} from './components/guide/view-guide/view-guide.component';
+import {ModelViewerComponent} from './components/model-viewer/model-viewer.component';
+import {CreateGuideComponent} from './components/guide/create-guide/create-guide.component';
+import { EditGuideComponent } from './components/guide/edit-guide/edit-guide.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,10 @@ import {CreateGuideComponent} from './components/create-guide/create-guide.compo
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    GuideComponent,
-    ThreeViewerComponent,
-    CreateGuideComponent
+    ViewGuideComponent,
+    ModelViewerComponent,
+    CreateGuideComponent,
+    EditGuideComponent
   ],
   imports: [
     BrowserModule,

@@ -7,10 +7,10 @@ import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader';
 
 @Component({
   selector: 'app-three-viewer',
-  templateUrl: './three-viewer.component.html',
-  styleUrls: ['./three-viewer.component.sass']
+  templateUrl: './model-viewer.component.html',
+  styleUrls: ['./model-viewer.component.sass']
 })
-export class ThreeViewerComponent implements OnInit, OnDestroy {
+export class ModelViewerComponent implements OnInit, OnDestroy {
 
   id: number;
   readonly annotations;

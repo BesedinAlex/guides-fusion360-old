@@ -1,9 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
-import {GuidePageDataService} from '../../services/guide-page-data.service';
-import {serverURL} from '../../services/server-url';
-import PartGuide from '../../interfaces/part-guide';
+import {GuidePageDataService} from '../../../services/guide-page-data.service';
+import {serverURL} from '../../../services/server-url';
+import PartGuide from '../../../interfaces/part-guide';
 
 interface CurrentPart {
   name: string;
@@ -11,11 +11,11 @@ interface CurrentPart {
 }
 
 @Component({
-  selector: 'app-guide',
-  templateUrl: './guide.component.html',
-  styleUrls: ['./guide.component.sass']
+  selector: 'app-view-guide',
+  templateUrl: './view-guide.component.html',
+  styleUrls: ['./view-guide.component.sass']
 })
-export class GuideComponent implements OnInit, OnDestroy {
+export class ViewGuideComponent implements OnInit, OnDestroy {
 
   serverURL: string;
   guideId: number;

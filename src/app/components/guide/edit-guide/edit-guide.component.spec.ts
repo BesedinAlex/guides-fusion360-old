@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreeViewerComponent } from './three-viewer.component';
+import { EditGuideComponent } from './edit-guide.component';
 
-describe('ThreeViewerComponent', () => {
-  let component: ThreeViewerComponent;
-  let fixture: ComponentFixture<ThreeViewerComponent>;
+describe('EditGuideComponent', () => {
+  let component: EditGuideComponent;
+  let fixture: ComponentFixture<EditGuideComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThreeViewerComponent ]
+      declarations: [ EditGuideComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThreeViewerComponent);
+    fixture = TestBed.createComponent(EditGuideComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,19 @@
-<header class="py-1 fixed-top">
-  <div class="container">
-      <a class="navbar-brand" [routerLink]="'/'">FUSION360GUIDE</a>
+<header class="navbar navbar-expand-lg py-1 navbar-dark fixed-top">
+  <a class="navbar-brand" [routerLink]="'/'">FUSION360GUIDE</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/guide-new'">Создать</a>
+      </li>
+    </ul>
+    <a [routerLink]="'/'">
+      <button class="btn btn-danger">Выйти</button>
+    </a>
   </div>
 </header>
