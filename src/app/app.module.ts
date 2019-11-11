@@ -10,7 +10,10 @@ import {HomeComponent} from './components/home/home.component';
 import {ViewGuideComponent} from './components/guide/view-guide/view-guide.component';
 import {ModelViewerComponent} from './components/model-viewer/model-viewer.component';
 import {CreateGuideComponent} from './components/guide/create-guide/create-guide.component';
-import { EditGuideComponent } from './components/guide/edit-guide/edit-guide.component';
+import {EditGuideComponent} from './components/guide/edit-guide/edit-guide.component';
+import {SignUpComponent} from './components/auth/sign-up/sign-up.component';
+import {SignInComponent} from './components/auth/sign-in/sign-in.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import { EditGuideComponent } from './components/guide/edit-guide/edit-guide.com
     ViewGuideComponent,
     ModelViewerComponent,
     CreateGuideComponent,
-    EditGuideComponent
+    EditGuideComponent,
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

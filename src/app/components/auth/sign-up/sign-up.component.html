@@ -1,0 +1,18 @@
+<form [formGroup]="form" class="form-auth my-5">
+  <a [routerLink]="'/'">
+    <img class="mb-4" src="./assets/logo250.jpg" alt="" width="128" height="128" />
+  </a>
+  <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+  <input type="email" class="form-control" placeholder="Электронная почта" formControlName="email" autofocus>
+  <input type="text" class="form-control" placeholder="Код приглашения" formControlName="inviteCode">
+  <input type="text" class="form-control" placeholder="Имя" formControlName="firstName">
+  <input type="text" class="form-control" placeholder="Фамилия" formControlName="lastName">
+  <input type="text" class="form-control" placeholder="Группа" formControlName="group">
+  <input type="password" class="form-control" placeholder="Пароль" formControlName="password">
+  <a [routerLink]="'/login'" class="link">Уже есть аккаунт? Войди!</a>
+  <button (click)="signUp()" [disabled]="!form.valid" class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+  <p class="py-2">
+    <span class="text-danger">ВНИМАНИЕ!</span> Данный сайт является учебным проектом и не несет ответственность за сохранность ваших данных. Не используйте пароли ваших аккаунтов с других сайтов.
+  </p>
+</form>
+

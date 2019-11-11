@@ -5,9 +5,13 @@ import {ViewGuideComponent} from './components/guide/view-guide/view-guide.compo
 import {ModelViewerComponent} from './components/model-viewer/model-viewer.component';
 import {CreateGuideComponent} from './components/guide/create-guide/create-guide.component';
 import {EditGuideComponent} from './components/guide/edit-guide/edit-guide.component';
+import {SignUpComponent} from './components/auth/sign-up/sign-up.component';
+import {SignInComponent} from './components/auth/sign-in/sign-in.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'login', component: SignInComponent},
+  {path: 'signup', component: SignUpComponent},
   {path: 'guide/:id', component: ViewGuideComponent},
   {path: 'viewer/:id', component: ModelViewerComponent},
   {path: 'guide-new', component: CreateGuideComponent},
