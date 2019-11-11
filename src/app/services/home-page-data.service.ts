@@ -9,7 +9,7 @@ export class HomePageDataService extends DatabaseConnectionService {
 
   async getHomePageData(): Promise<Guide[]> {
     try {
-      return await this.getData('home');
+      return await this.getData('guide/all');
     } catch (err) {
       alert('Unable to access database. Try again.');
     }
