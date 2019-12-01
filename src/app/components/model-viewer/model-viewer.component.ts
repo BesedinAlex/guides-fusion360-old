@@ -4,9 +4,10 @@ import * as THREE from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
 import {MTLLoader} from 'three/examples/jsm/loaders/MTLLoader';
 import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader';
+import {serverURL} from '../../services/server-url';
 
 @Component({
-  selector: 'app-three-viewer',
+  selector: 'app-model-viewer',
   templateUrl: './model-viewer.component.html',
   styleUrls: ['./model-viewer.component.sass']
 })
@@ -25,19 +26,13 @@ export class ModelViewerComponent implements OnInit, OnDestroy {
   private currentPoint: { x: number, y: number, z: number };
   private animationStopped: boolean;
 
-  // TODO: Save annotations on server database.
   constructor(
     private elRef: ElementRef,
     private currentRoute: ActivatedRoute
   ) {
     this.host = this.elRef.nativeElement;
     this.currentRoute.params.subscribe(param => this.id = param.id);
-    try {
-      this.annotations = [];
-      // this.annotations = data.annotations.find(annotations => annotations.id === +this.id).annotations;
-    } catch (e) {
-      this.annotations = [];
-    }
+    this.annotations = [];
   }
 
   async ngOnInit() {
@@ -60,39 +55,39 @@ export class ModelViewerComponent implements OnInit, OnDestroy {
 
   init() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xf0f0f0);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    dirLight.color.setHSL(0.1, 1, 0.95);
-    dirLight.position.set(1, 1, 1);
-    dirLight.position.multiplyScalar(30);
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize.width = 2048;
-    dirLight.shadow.mapSize.height = 2048;
-    dirLight.shadow.camera.left = -50;
-    dirLight.shadow.camera.right = 50;
-    dirLight.shadow.camera.top = 50;
-    dirLight.shadow.camera.bottom = -50;
-    dirLight.shadow.camera.far = 3500;
-    dirLight.shadow.bias = -0.0001;
-    dirLight.shadow.mapSize.width = 2048;
-    dirLight.shadow.mapSize.height = 2048;
-    this.scene.add(dirLight);
+    const ambient = new THREE.AmbientLight(0xffffff, 1.0);
+    this.scene.add(ambient);
 
-    new MTLLoader().load(`./assets/guides/${this.id}/model.mtl`, (materials) => {
+    const keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+    keyLight.position.set(-100, 0, 100);
+    this.scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
+    fillLight.position.set(100, 0, 100);
+    this.scene.add(fillLight);
+
+    const backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    backLight.position.set(100, 0, -100).normalize();
+    this.scene.add(backLight);
+
+    new MTLLoader().load(`${serverURL}/models/${this.id}/model.mtl`, (materials) => {
       materials.preload();
       const objLoader = new OBJLoader();
       // @ts-ignore
       objLoader.setMaterials(materials);
-      objLoader.load(`./assets/guides/${this.id}/model.obj`, (mesh) => this.scene.add(mesh));
+      objLoader.load(`${serverURL}/models/${this.id}/model.obj`, (mesh) => {
+        this.scene.add(mesh);
+      });
     });
 
     this.renderer = new THREE.WebGLRenderer({antialias: true});
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setClearColor(new THREE.Color('hsl(0, 0%, 10%)'));
     this.host.appendChild(this.renderer.domElement);
 
-    this.camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 5000);
+    this.camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100000);
     this.camera.position.set(225, 150, 375);
 
     this.controls = new TrackballControls(this.camera, this.renderer.domElement);
@@ -151,7 +146,7 @@ export class ModelViewerComponent implements OnInit, OnDestroy {
   hideAnnotation(index: number) {
     const annotation = document.querySelector('#annotation-' + index);
     const annotationText = document.querySelector('#annotation-text-' + index);
-    const hidden = annotation.classList.contains('hidden');
+    const hidden: boolean = annotation.classList.contains('hidden');
     const text = this.annotations.find(obj => obj.index === index).text;
     annotationText.innerHTML = hidden ? text : '';
     if (hidden) {
