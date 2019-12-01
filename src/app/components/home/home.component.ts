@@ -10,7 +10,6 @@ import Guide from '../../interfaces/guide';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  // TODO: Move all the data to server database.
   guides: Guide[];
   serverURL: string;
 
