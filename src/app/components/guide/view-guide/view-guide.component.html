@@ -6,7 +6,7 @@
     <li class="px-2 py-2" *ngFor="let guide of guides">
       <a class="btn btn-success" data-toggle="modal" data-target="#modal" href="" (click)="fillModalWindow(guide)">{{guide.name}}</a>
     </li>
-<!--    <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', guideId]">Посмотреть в 3D</a></li>-->
+    <li class="px-2 py-2"><a class="btn btn-warning text-white" [routerLink]="['/viewer', guideId]">Посмотреть в 3D</a></li>
   </ul>
 </div>
 
