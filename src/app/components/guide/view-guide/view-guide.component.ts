@@ -40,7 +40,6 @@ export class ViewGuideComponent implements OnInit, OnDestroy {
     if (this.guides.length === 0) {
       this.router.navigate(['/']);
     }
-    this.guides.sort((a: PartGuide, b: PartGuide) => a.sortKey > b.sortKey ? 1 : -1);
     this.guideImage = await this.data.getGuideImage(this.guideId);
   }
 
