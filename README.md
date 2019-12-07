@@ -1,3 +1,5 @@
+The entire project was moved to [another repository](https://github.com/BesedinAlex/guides-fusion360). This repository is now archived and doesn't receive any new updates.
+
 # Beginner's guides to Fusion 360
 
 This small web site was created for very beginners (especially pupils) who have never worked with [Autodesk Fusion 360](https://autodesk.com/products/fusion-360/overview). Content of the site was made by students of [Moscow Polytechnic University](https://mospolytech.ru).
