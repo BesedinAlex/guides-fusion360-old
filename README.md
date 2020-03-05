@@ -1,4 +1,4 @@
-The entire project was moved to [another repository](https://github.com/BesedinAlex/guides-fusion360). This repository is now archived and doesn't receive any new updates.
+The entire project was moved to [another repository](https://github.com/BesedinAlex/guides-fusion360-client). This repository is now archived and doesn't receive any new updates.
 
 # Beginner's guides to Fusion 360
 
